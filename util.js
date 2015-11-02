@@ -27,3 +27,20 @@ function pitcherType(d) {
 function teamType(d) {
   return d;
 }
+
+function getPlayerDataForYear(year, allPlayers) {
+	var result = [];
+	var playerIds = Object.keys(allPlayers);
+	for (var i = 0; i < playerIds.length; i++) {
+		var playerId = playerIds[i];
+		var player = allPlayers[playerId];
+		var playerName = player.name;
+		if (year in player.data) {
+			var playerData = player.data[year];
+			playerData.name = playerName;
+			playerData.playerID = playerId;
+			result.push(playerData);
+		}
+	}
+	return result;
+}

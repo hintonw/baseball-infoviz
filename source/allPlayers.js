@@ -13,7 +13,7 @@ d3.csv("raw_data/2014/Master.csv", function(error1, master) {
 			  // 
 			  for (var i = 0; i < master.length; i++) {
 				  if (currentlyPlays(master[i].finalGame)) {
-					  allPlayers[master[i].playerID] = {name : master[i].nameGiven, data : {}};
+					  allPlayers[master[i].playerID] = {name : master[i].nameFirst + " " + master[i].nameLast, data : {}};
 				  }
 			  }
 			  
@@ -78,9 +78,10 @@ d3.csv("raw_data/2014/Master.csv", function(error1, master) {
 				  }
 			  }
 			  
-			  console.log(allPlayers);
 			  
 			  loadTeams(allPlayers);
+			  
+			  console.log(getPlayerDataForYear("2014", allPlayers));
 			  // drawPlayerPicker(allPlayers);
 			  
 			  // drawPlayerBarChart(allPlayers);
