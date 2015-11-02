@@ -80,6 +80,7 @@ d3.csv("raw_data/2014/Master.csv", function(error1, master) {
 			  
 			  console.log(allPlayers);
 			  
+			  loadTeams(allPlayers);
 			  // drawPlayerPicker(allPlayers);
 			  
 			  // drawPlayerBarChart(allPlayers);
