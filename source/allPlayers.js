@@ -4,6 +4,8 @@ d3.csv("raw_data/2014/Master.csv", function(error1, master) {
 	
 		d3.csv("raw_data/2014/Pitching.csv", pitcherType, function(error2, pitchers) {
 			
+			d3.csv("raw_data/2014/Fielding.csv", function(error2, positions) {
+			
 			  
 			  // TODO: get cumulative stats for players over all years in table
 			  // TODO: filter out non-major teams and players who aren't around anymore
@@ -79,15 +81,32 @@ d3.csv("raw_data/2014/Master.csv", function(error1, master) {
 			  }
 			  
 			  
+			  for (var i = 0; i < positions.length; i++) {
+				  if (positions[i].playerID in allPlayers) {
+					  var year = positions[i].yearID;
+					  if (year in allPlayers[positions[i].playerID].data) {
+						  if ("positions" in allPlayers[positions[i].playerID].data[year]) {
+							  allPlayers[positions[i].playerID].data[year].positions.push(positions[i].POS);
+						  } else {
+							  allPlayers[positions[i].playerID].data[year].positions = [positions[i].POS];
+						  }
+					  }
+				  }
+			  }
+			  
+			  
 			  loadTeams(allPlayers);
 			  
-			  console.log(getPlayerDataForYear("2014", allPlayers));
-			  // drawPlayerPicker(allPlayers);
+			  // console.log(allPlayers);
+			  // console.log(getPlayerDataForYear("2014", allPlayers));
 			  
+			  
+			  // drawPlayerPicker(allPlayers);
 			  // drawPlayerBarChart(allPlayers);
 			  
 			  // NOTE: batter and pitcher objects have different attributes
-			  
+			
+			});
 		});
 	  
 	});
