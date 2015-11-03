@@ -28,7 +28,6 @@ function teamType(d) {
   return d;
 }
 
-
 function myFunction(){
 
 	document.getElementById("first-base").innerHTML = "YOU CLICKED ME!";
