@@ -44,3 +44,8 @@ function getPlayerDataForYear(year, allPlayers) {
 	}
 	return result;
 }
+
+function myFunction(){
+
+	document.getElementById("first-base").innerHTML = "YOU CLICKED ME!";
+}

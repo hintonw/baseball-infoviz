@@ -50,10 +50,16 @@
     border:1px solid white;
     background-color:white;
 }
+
+.base:hover{
+    cursor: pointer;
+}
 #first-base{
     top:450px;
     left:706px;
+
 }
+
 #second-base{
     top:231px;
     left:484px;
@@ -70,23 +76,9 @@
     left:485px;
     border:1px solid white;
     background-color:white;
+     -webkit-transform: rotate(0deg);
 }
-#home-plate:before, #home-plate:after{
-	top: 100%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
-#home-plate:before{
-    border-color: rgba(194, 225, 245, 0);
-	border-top-color:white;
-	border-width: 6.5px;
-	left: 50%;
-	margin-left: -6.5px;
-}
+
 #pitchers-mound{ 
     position:absolute;
     top:420px;
@@ -107,14 +99,7 @@
     border:1px solid white;
     background-color:white;
 }
-#vertical{
-    position:absolute;
-    top:14px;
-    left:491px;
-    height:1115px;
-    width:1px;
-    border-left:1px solid black;
-}
+
 .half-circle{    
     position:absolute;
     height:40px;
@@ -170,3 +155,4 @@
      background-color: #ac0;
    
 }
+
