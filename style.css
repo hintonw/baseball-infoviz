@@ -64,7 +64,26 @@
     top:231px;
     left:484px;
 }
-#thrid-base{
+
+.circle{    
+    position:absolute;
+    height:20px;
+    width: 20px;
+    border:1px solid white;
+    background-color:white;
+}
+
+.circle:hover{
+    cursor: pointer;
+}
+
+#shortstop{
+    top:301px;
+    left:318px;
+    border-radius:100% 100% 100% 100%;
+}
+
+#third-base{
     top:450px;
     left:262px;
 }
@@ -79,6 +98,13 @@
      -webkit-transform: rotate(0deg);
 }
 
+
+#outfield{
+    top:100px;
+    left:484px;
+    border-radius:100% 100% 100% 100%;
+
+}
 #pitchers-mound{ 
     position:absolute;
     top:420px;
@@ -100,29 +126,11 @@
     background-color:white;
 }
 
-.half-circle{    
-    position:absolute;
-    height:40px;
-    width: 40px;
-    -webkit-transform: rotate(-45deg);
-    border:1px solid #836539;
-    background-color:#836539;
+#pitchers-plate:hover{
+
+    cursor: pointer;
 }
-#third-circle{
-    top:440px;
-    left:300px;
-    border-radius:1% 1% 100% 1%;
-}
-#first-circle{
-    top:440px;
-    left:642px;
-    border-radius:100% 1% 1% 1%;
-}
-#second-circle{
-    top:275px;
-    left:470px;
-    border-radius:1% 1% 1% 100%;
-}
+
 .batters-box{
     position:absolute;
     height:25px;
