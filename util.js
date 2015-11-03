@@ -1,9 +1,26 @@
 // TODO this may need to be done for our data
 function batterType(d) {
+  d.G = +d.G;
+  d.AB = +d.AB;
+  d.R = +d.R;
+  d.H = +d.H;
+  d['2B'] = +d['2B'];
+  d['3B'] = +d['3B'];
+  d.HR = +d.HR;
+  d.RBI = +d.RBI;
+  d.SB = +d.SB;
+  d.SO = +d.SO;
+  d.BB = +d.BB;
   return d;
 }
 
 function pitcherType(d) {
+  d.W = +d.W;
+  d.ERA = +d.ERA;
+  d.BB = +d.BB;
+  d.H = +d.H;
+  d.SO = +d.SO;
+  d.SV = +d.SV;
   return d;
 }
 
