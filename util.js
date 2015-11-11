@@ -2,6 +2,7 @@
 function batterType(d) {
   d.G = +d.G;
   d.AB = +d.AB;
+  d.AVG = +d.AVG;
   d.R = +d.R;
   d.H = +d.H;
   d['2B'] = +d['2B'];
@@ -43,6 +44,27 @@ function getPlayerDataForYear(year, allPlayers) {
 		}
 	}
 	return result;
+}
+
+function getPlayerDataForYear(year, allPlayers) {
+	var result = [];
+	var playerIds = Object.keys(allPlayers);
+	for (var i = 0; i < playerIds.length; i++) {
+		var playerId = playerIds[i];
+		var player = allPlayers[playerId];
+		var playerName = player.name;
+		if (year in player.data) {
+			var playerData = player.data[year];
+			playerData.name = playerName;
+			playerData.playerID = playerId;
+			result.push(playerData);
+		}
+	}
+	return result;
+}
+
+function getAllStatNames() {
+	return ['G', 'AB', 'R', 'H', 'AVG', '2B', '3B', 'HR', 'RBI', 'SB', 'SO', 'BB', 'W', 'ERA', 'SV'];
 }
 
 function myFunction(){
