@@ -1,4 +1,6 @@
-
+#stadium{
+    height: 730px;
+}
 
 #field{ 
     position:absolute;
@@ -187,6 +189,7 @@
     top:677px;
     left:498px;
 }
+
 #batting-circle{ 
     position:absolute;
     top:634px;
