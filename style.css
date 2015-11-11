@@ -76,6 +76,7 @@
     left:484px;
 }
 
+<<<<<<< HEAD
 #shortstop{
     height:20px;
     width:20px;
@@ -95,6 +96,24 @@
 
     border:1px solid #836539;
     background-color:#836539;
+=======
+.circle{    
+    position:absolute;
+    height:20px;
+    width: 20px;
+    border:1px solid white;
+    background-color:white;
+}
+
+.circle:hover{
+    cursor: pointer;
+}
+
+#shortstop{
+    top:301px;
+    left:318px;
+    border-radius:100% 100% 100% 100%;
+>>>>>>> refs/remotes/origin/HTMLclick
 }
 
 #third-base{
@@ -109,8 +128,16 @@
     left:485px;
     border:1px solid white;
     background-color:white;
+     -webkit-transform: rotate(0deg);
 }
 
+
+#outfield{
+    top:100px;
+    left:484px;
+    border-radius:100% 100% 100% 100%;
+
+}
 #pitchers-mound{ 
     position:absolute;
     top:420px;
@@ -134,10 +161,13 @@
 
 #pitchers-plate:hover{
 
+<<<<<<< HEAD
     cursor: pointer;   
 }
 
 #pitchers-mound:hover{
+=======
+>>>>>>> refs/remotes/origin/HTMLclick
     cursor: pointer;
 }
 
@@ -168,6 +198,18 @@
      border:1px solid #836539;
     background-color:#836539;
 }
+
+#on-deck{
+    position:absolute;
+    top:654px;
+    left:560px;
+    height:50px;
+    width:50px;
+    border-radius:100% 100% 100% 100%;
+    border:1px solid #836539;
+    background-color:#836539;
+}
+
 
 .grass{
      background-color: #ac0;
