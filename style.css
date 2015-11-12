@@ -53,6 +53,17 @@
     background-color:white;
 }
 
+.circle{
+    position:absolute;
+    border-radius:100% 100% 100% 100%;
+    
+
+}
+
+.circle:hover{
+    cursor: pointer;
+}
+
 .base:hover{
     cursor: pointer;
 }
@@ -67,6 +78,27 @@
     left:484px;
 }
 
+<<<<<<< HEAD
+#shortstop{
+    height:20px;
+    width:20px;
+    top:271px;
+    left:316px;
+    border:1px solid white;
+    background-color: white;
+
+}
+
+#on-deck{
+    height:40px;
+    width:40px;
+    
+    top:660px;
+    left:575px;
+
+    border:1px solid #836539;
+    background-color:#836539;
+=======
 .circle{    
     position:absolute;
     height:20px;
@@ -83,6 +115,7 @@
     top:301px;
     left:318px;
     border-radius:100% 100% 100% 100%;
+>>>>>>> refs/remotes/origin/HTMLclick
 }
 
 #third-base{
@@ -130,6 +163,13 @@
 
 #pitchers-plate:hover{
 
+<<<<<<< HEAD
+    cursor: pointer;   
+}
+
+#pitchers-mound:hover{
+=======
+>>>>>>> refs/remotes/origin/HTMLclick
     cursor: pointer;
 }
 

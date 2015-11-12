@@ -29,6 +29,8 @@ function teamType(d) {
   return d;
 }
 
+<<<<<<< HEAD
+=======
 function getPlayerDataForYear(year, allPlayers) {
 	var result = [];
 	var playerIds = Object.keys(allPlayers);
@@ -46,6 +48,9 @@ function getPlayerDataForYear(year, allPlayers) {
 	return result;
 }
 
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/HTMLclick
+=======
 function getPlayerDataForYear(year, allPlayers) {
 	var result = [];
 	var playerIds = Object.keys(allPlayers);
@@ -67,6 +72,7 @@ function getAllStatNames() {
 	return ['G', 'AB', 'R', 'H', 'AVG', '2B', '3B', 'HR', 'RBI', 'SB', 'SO', 'BB', 'W', 'ERA', 'SV'];
 }
 
+>>>>>>> origin/master
 function myFunction(){
 
 	document.getElementById("first-base").innerHTML = "YOU CLICKED ME!";
