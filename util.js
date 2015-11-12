@@ -29,28 +29,6 @@ function teamType(d) {
   return d;
 }
 
-<<<<<<< HEAD
-=======
-function getPlayerDataForYear(year, allPlayers) {
-	var result = [];
-	var playerIds = Object.keys(allPlayers);
-	for (var i = 0; i < playerIds.length; i++) {
-		var playerId = playerIds[i];
-		var player = allPlayers[playerId];
-		var playerName = player.name;
-		if (year in player.data) {
-			var playerData = player.data[year];
-			playerData.name = playerName;
-			playerData.playerID = playerId;
-			result.push(playerData);
-		}
-	}
-	return result;
-}
-
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/HTMLclick
-=======
 function getPlayerDataForYear(year, allPlayers) {
 	var result = [];
 	var playerIds = Object.keys(allPlayers);
@@ -72,7 +50,6 @@ function getAllStatNames() {
 	return ['G', 'AB', 'R', 'H', 'AVG', '2B', '3B', 'HR', 'RBI', 'SB', 'SO', 'BB', 'W', 'ERA', 'SV'];
 }
 
->>>>>>> origin/master
 function myFunction(){
 
 	document.getElementById("first-base").innerHTML = "YOU CLICKED ME!";

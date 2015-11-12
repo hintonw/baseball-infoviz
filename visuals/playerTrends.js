@@ -65,6 +65,30 @@ function drawTrendChart() {
 	      .data(getAllStatNames()).enter()
 	      .append('option')
 	        .text(function(d) {return d;});
+    
+    svg.append("rect")
+        .attr("width", width_trend)  
+        .attr("height", height_trend)
+        .style("fill", "none")       
+        .style("pointer-events", "all") 
+        .on("mouseover", function() { focus.style("display", null); })
+        .on("mouseout", function() { focus.style("display", "none"); })
+        .on("mousemove", mousemove);    
+
+    function mousemove() {
+    	var bisectYear = d3.bisector(function(d) { return d.year; }).left;
+    	
+        var x0 = x.invert(d3.mouse(this)[0]),              
+            i = bisectYear(data, x0, 1),                 
+            d0 = data[i - 1],                            
+            d1 = data[i],                                
+            d = x0 - d0.year > d1.year - x0 ? d1 : d0;   
+
+        focus.select("circle.y")                         
+            .attr("transform",                           
+                  "translate(" + x(d.date) + "," +       
+                                 y(d.close) + ")");   
+    }
 }
 
 function registerTrendPlayers(allPlayers) {

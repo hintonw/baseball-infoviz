@@ -78,7 +78,6 @@
     left:484px;
 }
 
-<<<<<<< HEAD
 #shortstop{
     height:20px;
     width:20px;
@@ -98,24 +97,6 @@
 
     border:1px solid #836539;
     background-color:#836539;
-=======
-.circle{    
-    position:absolute;
-    height:20px;
-    width: 20px;
-    border:1px solid white;
-    background-color:white;
-}
-
-.circle:hover{
-    cursor: pointer;
-}
-
-#shortstop{
-    top:301px;
-    left:318px;
-    border-radius:100% 100% 100% 100%;
->>>>>>> refs/remotes/origin/HTMLclick
 }
 
 #third-base{
@@ -163,13 +144,6 @@
 
 #pitchers-plate:hover{
 
-<<<<<<< HEAD
-    cursor: pointer;   
-}
-
-#pitchers-mound:hover{
-=======
->>>>>>> refs/remotes/origin/HTMLclick
     cursor: pointer;
 }
 
