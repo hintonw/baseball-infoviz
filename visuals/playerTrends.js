@@ -24,9 +24,8 @@ var svg_trend = d3.select("#trendsChart")
 
 var allPlayers_trend;
 
-function drawTrendChart(allPlayers) {
+function drawTrendChart() {
 	
-	allPlayers_trend = allPlayers;
 	
     x_trend.domain(rangeOf(2000, 2014));
     y_trend.domain([0, .5]);
@@ -50,6 +49,10 @@ function drawTrendChart(allPlayers) {
 	      .style("text-anchor", "end")
 	      .text("AVG");
     
+    svg_trend.append("g")
+	    .attr("class", "legendOrdinal")
+	    .attr("transform", "translate(" + (width_trend - 200) + ",0)");
+    
     d3.select('#trendsPicker')
 	    .append('p')
 	    .append('select')
@@ -64,6 +67,10 @@ function drawTrendChart(allPlayers) {
 	        .text(function(d) {return d;});
 }
 
+function registerTrendPlayers(allPlayers) {
+	allPlayers_trend = allPlayers;
+}
+
 function updateChart(newStat) {
 	
 	var maxStat = 1;
@@ -75,7 +82,7 @@ function updateChart(newStat) {
 	
     // Scale the range of the data again
     x_trend.domain(range);
-    y_trend.domain([0, maxStat * 1.2]);
+    y_trend.domain([0, maxStat * 1.5]);
 
     // Select the section we want to apply our changes to
     var svg = d3.select("#trendsChart").transition();
@@ -90,12 +97,30 @@ function updateChart(newStat) {
     	.duration(750)
     	.text(newStat);
     
+    var colors = colorArray(currentTrendPlayers.length);
+    
     for (var i = 0; i < currentTrendPlayers.length; i++) {
     	var player = currentTrendPlayers[i];
+    	var playerData = getDataFor(player);
         svg.select(".line" + player)
             .duration(750)
-            .attr("d", makeLineFor(player));
+            .attr("d", makeLineWith(playerData))
+            .style("stroke", colors[i]);
     }
+    
+    var ordinal = d3.scale.ordinal()
+    	.domain(currentTrendPlayers.map(function(d) {
+    		return allPlayers_trend[d].name;
+    	}))
+    	.range(colors);
+	
+	var legendOrdinal = d3.legend.color()
+	    .shape("path", d3.svg.symbol().type("triangle-up").size(100)())
+	    .shapePadding(10)
+	    .scale(ordinal);
+	
+	svg_trend.select(".legendOrdinal")
+	    .call(legendOrdinal);
 
 }
 
@@ -104,9 +129,7 @@ function addPlayerTrend(player) {
 	
 	currentTrendPlayers.push(player);
 	
-	svg_trend.append("path").attr("class", "line" + player)
-			.attr("fill", "none")
-            .attr("stroke", "#000");
+	svg_trend.append("path").attr("class", "line" + player).attr("fill", "none");
 	
 	updateChart(currentStat);
 }
@@ -114,12 +137,26 @@ function addPlayerTrend(player) {
 function removePlayerTrend(player) {
 	var index = currentTrendPlayers.indexOf(player);
 	if (index > -1) {
-	    currentTrendPlayers = currentTrendPlayers.splice(index, 1);
+	    currentTrendPlayers.splice(index, 1);
 	    svg_trend.select(".line" + player).remove();
+	    updateChart(currentStat);
 	}
 }
 
 function makeLineFor(player) {
+	var valueline = d3.svg.line()
+	    .x(function(d) { return x_trend(d.year); })
+	    .y(function(d) {
+	    	if (d[currentStat] === undefined || d[currentStat] === NaN) {
+	    		return y_trend(0.0);
+	    	}
+	    	return y_trend(d[currentStat]);
+	       });
+	
+	return valueline(getDataFor(player));
+}
+
+function makeLineWith(data) {
 	var valueline = d3.svg.line()
 	    .x(function(d) { return x_trend(d.year); })
 	    .y(function(d) {
@@ -130,7 +167,7 @@ function makeLineFor(player) {
 	    	return y_trend(d[currentStat]);
 	       });
 	
-	return valueline(getDataFor(player));
+	return valueline(data);
 }
 
 function getDataFor(player) {
@@ -140,9 +177,9 @@ function getDataFor(player) {
 		var year = years[i];
 		var d = shallowCopy(allPlayers_trend[player].data[year]);
 		d.year = parseInt(year);
+		d.name = allPlayers_trend[player].name;
 		res.push(d);
 	}
-	console.log(res);
 	return res;
 }
 
@@ -161,10 +198,12 @@ function maxStatValue(stat) {
 		var years = Object.keys(allPlayers_trend[player].data);
 		for (var j = 0; j < years.length; j++) {
 			var year = years[j];
-			max = Math.max(max, allPlayers_trend[player].data[year][stat]);
+			if (!isNaN(allPlayers_trend[player].data[year][stat])) {
+				max = Math.max(max, allPlayers_trend[player].data[year][stat]);
+			}
 		}
 	}
-	if (isNaN(max)) return 1;
+	if (isNaN(max) || max == 0) return 1;
 	return max;
 }
 
@@ -191,4 +230,13 @@ function shallowCopy(oldObj) {
         }
     }
     return newObj;
+}
+
+function colorArray(n) {
+	var res = [];
+	var color = d3.scale.category10();
+	for (var i = 0; i < n; i++) {
+		res.push(color(i));
+	}
+	return res;
 }
