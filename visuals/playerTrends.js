@@ -23,11 +23,16 @@ var svg_trend = d3.select("#trendsChart")
 	.attr("transform", "translate(" + margin_trend.left + "," + margin_trend.top + ")");
 
 var allPlayers_trend;
+var years_trend = rangeOf(2000, 2014);
+var colors_trend;
+var circlesG = svg_trend.append("g")                            
+				  .style("display", "none");
+
 
 function drawTrendChart() {
 	
 	
-    x_trend.domain(rangeOf(2000, 2014));
+    x_trend.domain(years_trend);
     y_trend.domain([0, .5]);
 
 //    svg.append("path").attr("class", "line") 
@@ -66,28 +71,68 @@ function drawTrendChart() {
 	      .append('option')
 	        .text(function(d) {return d;});
     
-    svg.append("rect")
+    svg_trend.append("rect")
         .attr("width", width_trend)  
         .attr("height", height_trend)
         .style("fill", "none")       
         .style("pointer-events", "all") 
-        .on("mouseover", function() { focus.style("display", null); })
-        .on("mouseout", function() { focus.style("display", "none"); })
+        .on("mouseover", function() { circlesG.style("display", null); })
+        .on("mouseout", function() { circlesG.style("display", "none"); })
         .on("mousemove", mousemove);    
 
     function mousemove() {
-    	var bisectYear = d3.bisector(function(d) { return d.year; }).left;
+    	if (circlesG.selectAll("circle").size() != currentTrendPlayers.length) return;
     	
-        var x0 = x.invert(d3.mouse(this)[0]),              
-            i = bisectYear(data, x0, 1),                 
-            d0 = data[i - 1],                            
-            d1 = data[i],                                
-            d = x0 - d0.year > d1.year - x0 ? d1 : d0;   
+    	var xPos = d3.mouse(this)[0];
+        var leftEdges = x_trend.range();
+        var width = x_trend.rangeBand();
+        var j;
+        for(j=0; xPos > (leftEdges[j] + width); j++) {}
+            //do nothing, just increment j until case fails
+            
 
-        focus.select("circle.y")                         
-            .attr("transform",                           
-                  "translate(" + x(d.date) + "," +       
-                                 y(d.close) + ")");   
+        for (var t = 0; t < currentTrendPlayers.length; t++) {
+        	
+        	var data = getDataFor(currentTrendPlayers[t]);
+        	var curYear = years_trend[j];
+        	var curStat = null;
+        	for (var r = 0; r < data.length; r++) {
+        		if (data[r].year == curYear) {
+        			curStat = data[r][currentStat];
+        		}
+        	}
+        	
+        	if (curStat == null) return;
+        	
+        	circlesG.select("circle.y" + t)                         
+            	.attr("transform",                           
+                      "translate(" + (x_trend(curYear) + x_trend.rangeBand()/2) + "," +       
+                                     y_trend(curStat) + ")");  
+        	
+        	circlesG.select("text.y1" + t)
+	            .attr("transform",
+	            		"translate(" + (x_trend(curYear) + x_trend.rangeBand()/2) + "," +       
+                        y_trend(curStat) + ")")
+	            .text(roundToThree(curStat));
+	
+	        circlesG.select("text.y2" + t)
+	            .attr("transform",
+	            		"translate(" + (x_trend(curYear) + x_trend.rangeBand()/2) + "," +       
+                        y_trend(curStat) + ")")
+	            .text(roundToThree(curStat));
+	
+	        circlesG.select("text.y3" + t)
+	            .attr("transform",
+	            		"translate(" + (x_trend(curYear) + x_trend.rangeBand()/2) + "," +       
+                        y_trend(curStat) + ")")
+	            .text(years_trend[j]);
+	
+	        circlesG.select("text.y4" + t)
+	            .attr("transform",
+	            		"translate(" + (x_trend(curYear) + x_trend.rangeBand()/2) + "," +       
+                        y_trend(curStat) + ")")
+	            .text(years_trend[j]);
+        }
     }
 }
 
@@ -104,6 +149,7 @@ function updateChart(newStat) {
 		range = getMaxRange();
 	}
 	
+	years_trend = range;
     // Scale the range of the data again
     x_trend.domain(range);
     y_trend.domain([0, maxStat * 1.5]);
@@ -121,22 +167,55 @@ function updateChart(newStat) {
     	.duration(750)
     	.text(newStat);
     
-    var colors = colorArray(currentTrendPlayers.length);
+    colors_trend = colorArray(currentTrendPlayers.length);
+    circlesG.selectAll("circle").remove();
+    circlesG.selectAll("text").remove();
     
     for (var i = 0; i < currentTrendPlayers.length; i++) {
     	var player = currentTrendPlayers[i];
     	var playerData = getDataFor(player);
+    	
         svg.select(".line" + player)
             .duration(750)
             .attr("d", makeLineWith(playerData))
-            .style("stroke", colors[i]);
+            .style("stroke", colors_trend[i]);
+        
+        circlesG.append("circle")                                
+	        .attr("class", "y" + i)                              
+	        .style("fill", "none")                           
+	        .style("stroke", "blue")                         
+	        .attr("r", 4);
+        
+        circlesG.append("text")
+	        .attr("class", "y1" + i)
+	        .style("stroke", "white")
+	        .style("stroke-width", "3.5px")
+	        .style("opacity", 0.8)
+	        .attr("dx", 8)
+	        .attr("dy", "-.3em");
+        circlesG.append("text")
+	        .attr("class", "y2" + i)
+	        .attr("dx", 8)
+	        .attr("dy", "-.3em");
+	
+        circlesG.append("text")
+	        .attr("class", "y3" + i)
+	        .style("stroke", "white")
+	        .style("stroke-width", "3.5px")
+	        .style("opacity", 0.8)
+	        .attr("dx", 8)
+	        .attr("dy", "1em");
+        circlesG.append("text")
+	        .attr("class", "y4" + i)
+	        .attr("dx", 8)
+	        .attr("dy", "1em");
     }
     
     var ordinal = d3.scale.ordinal()
     	.domain(currentTrendPlayers.map(function(d) {
     		return allPlayers_trend[d].name;
     	}))
-    	.range(colors);
+    	.range(colors_trend);
 	
 	var legendOrdinal = d3.legend.color()
 	    .shape("path", d3.svg.symbol().type("triangle-up").size(100)())
@@ -182,7 +261,7 @@ function makeLineFor(player) {
 
 function makeLineWith(data) {
 	var valueline = d3.svg.line()
-	    .x(function(d) { return x_trend(d.year); })
+	    .x(function(d) { return x_trend(d.year) + + x_trend.rangeBand()/2; })
 	    .y(function(d) {
 	    	if (d[currentStat] === undefined || d[currentStat] === NaN) {
 	    		console.log("here");

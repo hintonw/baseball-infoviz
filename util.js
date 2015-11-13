@@ -50,6 +50,10 @@ function getAllStatNames() {
 	return ['G', 'AB', 'R', 'H', 'AVG', '2B', '3B', 'HR', 'RBI', 'SB', 'SO', 'BB', 'W', 'ERA', 'SV'];
 }
 
+function roundToThree(num) {
+	return Math.round(num * 1000) / 1000;
+}
+
 function myFunction(){
 
 	document.getElementById("first-base").innerHTML = "YOU CLICKED ME!";
