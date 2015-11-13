@@ -47,7 +47,7 @@ function getPlayerDataForYear(year, allPlayers) {
 }
 
 function getAllStatNames() {
-	return ['G', 'AB', 'R', 'H', 'AVG', '2B', '3B', 'HR', 'RBI', 'SB', 'SO', 'BB', 'W', 'ERA', 'SV'];
+	return ['AVG', 'G', 'AB', 'R', 'H', '2B', '3B', 'HR', 'RBI', 'SB', 'SO', 'BB', 'W', 'ERA', 'SV'];
 }
 
 function roundToThree(num) {

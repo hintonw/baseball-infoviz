@@ -102,7 +102,7 @@ function drawTrendChart() {
         		}
         	}
         	
-        	if (curStat == null) return;
+        	if (curStat == null) continue;
         	
         	circlesG.select("circle.y" + t)                         
             	.attr("transform",                           
@@ -120,18 +120,6 @@ function drawTrendChart() {
 	            		"translate(" + (x_trend(curYear) + x_trend.rangeBand()/2) + "," +       
                         y_trend(curStat) + ")")
 	            .text(roundToThree(curStat));
-	
-	        circlesG.select("text.y3" + t)
-	            .attr("transform",
-	            		"translate(" + (x_trend(curYear) + x_trend.rangeBand()/2) + "," +       
-                        y_trend(curStat) + ")")
-	            .text(years_trend[j]);
-	
-	        circlesG.select("text.y4" + t)
-	            .attr("transform",
-	            		"translate(" + (x_trend(curYear) + x_trend.rangeBand()/2) + "," +       
-                        y_trend(curStat) + ")")
-	            .text(years_trend[j]);
         }
     }
 }
@@ -178,7 +166,8 @@ function updateChart(newStat) {
         svg.select(".line" + player)
             .duration(750)
             .attr("d", makeLineWith(playerData))
-            .style("stroke", colors_trend[i]);
+            .style("stroke", colors_trend[i])
+            .style("stroke-width", 3);
         
         circlesG.append("circle")                                
 	        .attr("class", "y" + i)                              
@@ -197,18 +186,6 @@ function updateChart(newStat) {
 	        .attr("class", "y2" + i)
 	        .attr("dx", 8)
 	        .attr("dy", "-.3em");
-	
-        circlesG.append("text")
-	        .attr("class", "y3" + i)
-	        .style("stroke", "white")
-	        .style("stroke-width", "3.5px")
-	        .style("opacity", 0.8)
-	        .attr("dx", 8)
-	        .attr("dy", "1em");
-        circlesG.append("text")
-	        .attr("class", "y4" + i)
-	        .attr("dx", 8)
-	        .attr("dy", "1em");
     }
     
     var ordinal = d3.scale.ordinal()
