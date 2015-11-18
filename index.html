@@ -12,26 +12,30 @@
             <div id="in-field-grass" class="grass"></div>
             <div id="batting-circle"></div>
             <div id="base-lines"></div>
-            <div id="shortstop" class="circle"></div>
+            <div id="on-deck" class="circle" onclick="myFunction()"></div>
             <div id="first-base" class="base" onclick="myFunction()"></div>
-            <div id="second-base" class="base"></div>
-            <div id="third-base" class="base"></div>
-            <div id="home-plate" class="base"></div>
-            <div id="pitchers-mound"></div>
-            <div id="pitchers-plate"></div>
-            <div id="outfield" class="circle"></div>
-            <div id="on-deck"></div>
+            <div id="second-base" class="base" onclick="myFunction()"></div>
+            <div id="shortstop" class="circle" onclick="myFunction()"></div>
+            <div id="third-base" class="base" onclick="myFunction()"></div>
+            <div id="home-plate" class="base" onclick="myFunction()"></div>
+            <div id="pitchers-mound" onclick="myFunction()"></div> <!-- pitchers-mound and pitchers plate should be  same function -->
+            <div id="pitchers-plate"onclick="myFunction()"></div>
             <div id="batters-box-right" class="batters-box"></div>
             <div id="batters-box-left" class="batters-box"></div>
             
         </div>
-
+        <div id="trends">
+            <div id="trendsChart"></div>
+            <div id="trendsPicker"></div>
+        </div>
     <!-- External js libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 
     <!-- Our js files -->
+    <script src="d3-legend.min.js"></script>
     <script src="util.js"></script>
+    <script src="visuals/playerTrends.js"></script>
     <script src="source/allPlayers.js"></script>
     <script src="source/teams.js"></script>
 

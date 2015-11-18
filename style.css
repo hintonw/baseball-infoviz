@@ -1,4 +1,6 @@
-
+#stadium{
+    height: 730px;
+}
 
 #field{ 
     position:absolute;
@@ -51,6 +53,17 @@
     background-color:white;
 }
 
+.circle{
+    position:absolute;
+    border-radius:100% 100% 100% 100%;
+    
+
+}
+
+.circle:hover{
+    cursor: pointer;
+}
+
 .base:hover{
     cursor: pointer;
 }
@@ -65,22 +78,25 @@
     left:484px;
 }
 
-.circle{    
-    position:absolute;
-    height:20px;
-    width: 20px;
-    border:1px solid white;
-    background-color:white;
-}
-
-.circle:hover{
-    cursor: pointer;
-}
-
 #shortstop{
-    top:301px;
-    left:318px;
-    border-radius:100% 100% 100% 100%;
+    height:20px;
+    width:20px;
+    top:271px;
+    left:316px;
+    border:1px solid white;
+    background-color: white;
+
+}
+
+#on-deck{
+    height:40px;
+    width:40px;
+    
+    top:660px;
+    left:575px;
+
+    border:1px solid #836539;
+    background-color:#836539;
 }
 
 #third-base{
@@ -147,6 +163,7 @@
     top:677px;
     left:498px;
 }
+
 #batting-circle{ 
     position:absolute;
     top:634px;
