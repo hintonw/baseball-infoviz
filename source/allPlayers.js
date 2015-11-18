@@ -31,9 +31,9 @@ d3.csv("raw_data/2014/Master.csv", function(error1, master) {
 						  allPlayers[pitchers[i].playerID].data[year].teamID = player.teamID;
 						  allPlayers[pitchers[i].playerID].data[year].W += player.W;
 						  allPlayers[pitchers[i].playerID].data[year].ERA = (player.ERA + (curERA * (player.stint - 1))) / player.stint;
-						  allPlayers[pitchers[i].playerID].data[year].BB += player.BB;
-						  allPlayers[pitchers[i].playerID].data[year].H += player.H;
-						  allPlayers[pitchers[i].playerID].data[year].SO += player.SO;
+						  allPlayers[pitchers[i].playerID].data[year].pitchBB += player.pitchBB;
+						  allPlayers[pitchers[i].playerID].data[year].pitchH += player.pitchH;
+						  allPlayers[pitchers[i].playerID].data[year].pitchSO += player.pitchSO;
 						  allPlayers[pitchers[i].playerID].data[year].SV += player.SV;
 					  } else {
 						  allPlayers[pitchers[i].playerID].data[year] = {};
@@ -41,9 +41,9 @@ d3.csv("raw_data/2014/Master.csv", function(error1, master) {
 						  allPlayers[pitchers[i].playerID].data[year].teamID = player.teamID;
 						  allPlayers[pitchers[i].playerID].data[year].W = player.W;
 						  allPlayers[pitchers[i].playerID].data[year].ERA = player.ERA;
-						  allPlayers[pitchers[i].playerID].data[year].BB = player.BB;
-						  allPlayers[pitchers[i].playerID].data[year].H = player.H;
-						  allPlayers[pitchers[i].playerID].data[year].SO = player.SO;
+						  allPlayers[pitchers[i].playerID].data[year].pitchBB = player.pitchBB;
+						  allPlayers[pitchers[i].playerID].data[year].pitchH = player.pitchH;
+						  allPlayers[pitchers[i].playerID].data[year].pitchSO = player.pitchSO;
 						  allPlayers[pitchers[i].playerID].data[year].SV = player.SV;
 					  }
 				  }
@@ -62,30 +62,30 @@ d3.csv("raw_data/2014/Master.csv", function(error1, master) {
 						  allPlayers[batters[i].playerID].data[year].G += player.G;
 						  allPlayers[batters[i].playerID].data[year].AB += player.AB;
 						  allPlayers[batters[i].playerID].data[year].R += player.R;
-						  allPlayers[batters[i].playerID].data[year].H += player.H;
-						  allPlayers[batters[i].playerID].data[year].AVG = allPlayers[batters[i].playerID].data[year].H / allPlayers[batters[i].playerID].data[year].AB;
+						  allPlayers[batters[i].playerID].data[year].hitterH += player.hitterH;
+						  allPlayers[batters[i].playerID].data[year].AVG = allPlayers[batters[i].playerID].data[year].hitterH / allPlayers[batters[i].playerID].data[year].AB;
 						  allPlayers[batters[i].playerID].data[year]['2B'] += player['2B'];
 						  allPlayers[batters[i].playerID].data[year]['3B'] += player['3B'];
 						  allPlayers[batters[i].playerID].data[year].HR += player.HR;
 						  allPlayers[batters[i].playerID].data[year].RBI += player.RBI;
 						  allPlayers[batters[i].playerID].data[year].SB += player.SB;
-						  allPlayers[batters[i].playerID].data[year].SO += player.SO;
-						  allPlayers[batters[i].playerID].data[year].BB += player.BB;
+						  allPlayers[batters[i].playerID].data[year].hitterSO += player.hitterSO;
+						  allPlayers[batters[i].playerID].data[year].hitterBB += player.hitterBB;
 					  } else {
 						  allPlayers[batters[i].playerID].data[year] = {};
 						  allPlayers[batters[i].playerID].data[year].teamID = player.teamID;
 						  allPlayers[batters[i].playerID].data[year].G = player.G;
 						  allPlayers[batters[i].playerID].data[year].AB = player.AB;
 						  allPlayers[batters[i].playerID].data[year].R = player.R;
-						  allPlayers[batters[i].playerID].data[year].H = player.H;
-						  allPlayers[batters[i].playerID].data[year].AVG = allPlayers[batters[i].playerID].data[year].H / allPlayers[batters[i].playerID].data[year].AB;
+						  allPlayers[batters[i].playerID].data[year].hitterH = player.hitterH;
+						  allPlayers[batters[i].playerID].data[year].AVG = allPlayers[batters[i].playerID].data[year].hitterH / allPlayers[batters[i].playerID].data[year].AB;
 						  allPlayers[batters[i].playerID].data[year]['2B'] = player['2B'];
 						  allPlayers[batters[i].playerID].data[year]['3B'] = player['3B'];
 						  allPlayers[batters[i].playerID].data[year].HR = player.HR;
 						  allPlayers[batters[i].playerID].data[year].RBI = player.RBI;
 						  allPlayers[batters[i].playerID].data[year].SB = player.SB;
-						  allPlayers[batters[i].playerID].data[year].SO = player.SO;
-						  allPlayers[batters[i].playerID].data[year].BB = player.BB;
+						  allPlayers[batters[i].playerID].data[year].hitterSO = player.hitterSO;
+						  allPlayers[batters[i].playerID].data[year].hitterBB = player.hitterBB;
 					  }
 				  }
 			  }
@@ -107,7 +107,7 @@ d3.csv("raw_data/2014/Master.csv", function(error1, master) {
 			  
 			  loadTeams(allPlayers);
 			  
-			  // console.log(allPlayers);
+			  console.log(allPlayers);
 			  // console.log(getPlayerDataForYear("2014", allPlayers));
 			  
 			  
