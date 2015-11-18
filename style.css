@@ -2,6 +2,26 @@
     height: 730px;
 }
 
+.League{
+    float:left;
+    padding-left: 20px;
+
+}
+
+.Division{
+    float:left;
+    margin-left: 20px;
+}
+
+h1{
+    text-align: center;
+
+}
+
+h3{
+    text-align: center;
+}
+
 #field{ 
     position:absolute;
     top:180px;
