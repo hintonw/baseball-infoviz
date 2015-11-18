@@ -130,11 +130,11 @@ function registerBarPlayers(allPlayers) {
 // var player = allPlayers[playerId];
 
 //Pass in a playerID 
-function getBarDataFor(playerID) { 
+function getBarDataFor() { 
 
-	// var playerIds = Object.keys(allPlayers_Bar);
- //    var playerId = playerIds[15];
-	var player = allPlayers_Bar[playerID]; 
+	var playerIds = Object.keys(allPlayers_Bar);
+    var playerId = playerIds[15];
+	var player = allPlayers_Bar[playerId]; 
 	
 
 	console.log(player); 
