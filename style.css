@@ -1,26 +1,61 @@
 #stadium{
-    height: 730px;
+    height: 303px;
 }
 
+img{
+   
+    cursor: pointer;
+    vertical-align: middle;
+}
 
-.Division{
+#Teams{
+
+    width:100%;
+}
+
+#AmericanLeague{
+    float:right;
+    width:17%;
+}
+
+#NationalLeague{
+
     float:left;
-    margin-left: 20px;
+    width:17%;
 }
 
-h1{
+#AllTeams{
+    margin:0 auto;width:17%;
+}
+
+.NLDivision{
+    float: left;
+}
+
+.ALDivision{
+    float:right;
+}
+
+#Central{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+
+h2{
     text-align: center;
 
 }
 
-h3{
+h5{
     text-align: center;
 }
 
 #field{ 
     position:absolute;
-    top:180px;
-    left:500px;
+    top:52px;
+    left:326px;
     height:350px;
     width:350px;
     border-radius:1% 100% 1% 1%;
@@ -30,8 +65,8 @@ h3{
 }
 #in-field{ 
     position:absolute;
-    top:300px;
-    left:561px;
+    top:172px;
+    left:387px;
     height:225px;
     width:225px;
     border-radius:1% 50% 1% 1%;
@@ -41,8 +76,8 @@ h3{
 }
 #base-lines{
     position:absolute;
-    top: 151px;
-    left: 506px;
+    top: 23px;
+    left: 332px;
     height:335px;
     width:335px;
     border-left:2px solid white;
@@ -51,8 +86,8 @@ h3{
 }
 #in-field-grass{
     position:absolute;
-    top: 379px;
-    left: 607px;
+    top: 251px;
+    left: 433px;
     height:130px;
     width:130px;
     border:2px solid green;
@@ -83,23 +118,20 @@ h3{
     cursor: pointer;
 }
 #first-base{
-    top:424px;
-    left:782px;
+    top:296px;
+    left:608px;
 
 }
 
 #second-base{
-    top:319px;
-    left:666px;
+    top:191px;
+    left:492px;
 }
 
 #shortstop{
-    height:20px;
-    width:20px;
-    top:350px;
-    left:590px;
-    border:1px solid white;
-    background-color: white;
+    top:222px;
+    left:416px;
+    border-radius:100% 100% 100% 100%;
 
 }
 
@@ -107,23 +139,23 @@ h3{
     height:40px;
     width:40px;
     
-    top:660px;
-    left:575px;
+    top:532px;
+    left:401px;
 
     border:1px solid #836539;
     background-color:#836539;
 }
 
 #third-base{
-    top:424px;
-    left:554px;
+    top:296px;
+    left:380px;
 }
 #home-plate{
     position:absolute;
     height:9px;
     width:10px;
-    top:559px;
-    left:668px;
+    top:431px;
+    left:494px;
     border:1px solid white;
     background-color:white;
      -webkit-transform: rotate(55deg);
@@ -131,15 +163,15 @@ h3{
 
 
 #outfield{
-    top:100px;
-    left:484px;
+    top:266px;
+    left:666px;
     border-radius:100% 100% 100% 100%;
 
 }
 #pitchers-mound{ 
     position:absolute;
-    top:420px;
-    left:647px;
+    top:292px;
+    left:473px;
     height:50px;
     width:50px;
     border-radius:100% 100% 100% 100%;
@@ -149,8 +181,8 @@ h3{
 }
 #pitchers-plate{ 
     position:absolute;
-    top:443px;
-    left:664px;
+    top:315px;
+    left:490px;
     height:5px;
     width:16px;
     border:1px solid white;
@@ -171,18 +203,18 @@ h3{
     outline: 2px solid #836539;
 }
 #batters-box-right{
-    top:555px;
-    left:683px;
+    top:427px;
+    left:509px;
 }
 #batters-box-left{
-    top:555px;
-    left:655px;
+    top:427px;
+    left:481px;
 }
 
 #batting-circle{ 
     position:absolute;
-    top:540px;
-    left:649px;
+    top:412px;
+    left:475px;
     height:52px;
     width:52px;
     border-radius:100% 100% 100% 100%;
@@ -193,10 +225,10 @@ h3{
 
 #on-deck{
     position:absolute;
-    top:784px;
-    left:560px;
-    height:50px;
-    width:50px;
+    top:414px;
+    left:547px;
+    height:40px;
+    width:40px;
     border-radius:100% 100% 100% 100%;
     border:1px solid #836539;
     background-color:#836539;
