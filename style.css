@@ -8,17 +8,47 @@ img{
     vertical-align: middle;
 }
 
-.Division{
-    float:left;
-    margin-left: 20px;
+#Teams{
+
+    width:100%;
 }
 
-h1{
+#AmericanLeague{
+    float:right;
+    width:17%;
+}
+
+#NationalLeague{
+
+    float:left;
+    width:17%;
+}
+
+#AllTeams{
+    margin:0 auto;width:17%;
+}
+
+.NLDivision{
+    float: left;
+}
+
+.ALDivision{
+    float:right;
+}
+
+#Central{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+
+h2{
     text-align: center;
 
 }
 
-h3{
+h5{
     text-align: center;
 }
 
