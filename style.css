@@ -2,6 +2,11 @@
     height: 730px;
 }
 
+img{
+   
+    cursor: pointer;
+    vertical-align: middle;
+}
 
 .Division{
     float:left;
@@ -94,12 +99,9 @@ h3{
 }
 
 #shortstop{
-    height:20px;
-    width:20px;
     top:350px;
     left:590px;
-    border:1px solid white;
-    background-color: white;
+    border-radius:100% 100% 100% 100%;
 
 }
 
@@ -131,8 +133,8 @@ h3{
 
 
 #outfield{
-    top:100px;
-    left:484px;
+    top:266px;
+    left:666px;
     border-radius:100% 100% 100% 100%;
 
 }
@@ -193,10 +195,10 @@ h3{
 
 #on-deck{
     position:absolute;
-    top:784px;
-    left:560px;
-    height:50px;
-    width:50px;
+    top:542px;
+    left:721px;
+    height:40px;
+    width:40px;
     border-radius:100% 100% 100% 100%;
     border:1px solid #836539;
     background-color:#836539;
