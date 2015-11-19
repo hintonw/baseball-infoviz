@@ -74,17 +74,18 @@ function getAverageStatsForYear(year, allPlayers) {
 		}
 	}
 	
-	for (var i = 0; i < result.length; i++) {
-		console.log(result[i]);
-		console.log(counts[i]);
-		result[i] /= counts[i];
-	}
+	// for (var i = 0; i < result.length; i++) {
+	// 	console.log(result[i]);
+	// 	console.log(counts[i]);
+	// 	result[i] /= counts[i];
+	// }
 	return result;
 }
 
 function roundToThree(num) {
 	return Math.round(num * 1000) / 1000;
 }
+
 
 function myFunction(){
 

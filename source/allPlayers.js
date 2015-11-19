@@ -1,4 +1,5 @@
 drawTrendChart();
+drawBarChart(); 
 
 d3.csv("raw_data/2014/Master.csv", function(error1, master) {
 	
@@ -107,12 +108,12 @@ d3.csv("raw_data/2014/Master.csv", function(error1, master) {
 			  
 			  loadTeams(allPlayers);
 			  
-			  console.log(allPlayers);
+			  //console.log(allPlayers);
 			  // console.log(getPlayerDataForYear("2014", allPlayers));
 			  
 			  
 			  registerTrendPlayers(allPlayers);
-			  // drawPlayerBarChart(allPlayers);
+			  registerBarPlayers(allPlayers);
 			  
 			  // NOTE: batter and pitcher objects have different attributes
 			
