@@ -32,6 +32,19 @@ function drawPlayerPicker() {
       .append("li")
       .attr("class", "list-group-item")
       .text(function(d) { return allPlayers_Picker[d].name; });
+
+  d3.select("#viewport").selectAll("ul").selectAll("li")
+      .append("span")
+      .attr("class", "glyphicon glyphicon-remove")
+      .style("float", "right")
+      .style("color", "gray");
+
+      d3.select("#viewport").selectAll("ul").selectAll("li")
+      .append("span")
+      .attr("class", "glyphicon glyphicon-ok")
+      .style("float", "right")
+      .style("padding-right", "5px")
+      .style("color", "gray");
 }
 
 function drawPlayerList(playersToDraw) {
