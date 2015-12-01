@@ -2,6 +2,21 @@
     height: 303px;
 }
 
+div#trends {
+    width: 48%;
+    height: 270px;
+    float: left;
+}
+div#trendsPicker {
+    width: 4%;
+    height: 270px;
+    float:left
+}
+div#bars {
+    margin-left: 54%;
+    height: 270px;
+}
+
 img{
    
     cursor: pointer;

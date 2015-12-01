@@ -92,6 +92,7 @@ d3.csv("raw_data/2014/Master.csv", function(error1, master) {
 				  }
 			  }
 			  
+			  var allPositions = {};
 			  
 			  for (var i = 0; i < positions.length; i++) {
 				  if (positions[i].playerID in allPlayers) {
@@ -102,9 +103,17 @@ d3.csv("raw_data/2014/Master.csv", function(error1, master) {
 						  } else {
 							  allPlayers[positions[i].playerID].data[year].positions = [positions[i].POS];
 						  }
+						  if (positions[i].POS in allPositions) {
+							  allPositions[positions[i].POS].add(positions[i].playerID);
+						  } else {
+							  allPositions[positions[i].POS] = new Set();
+							  allPositions[positions[i].POS].add(positions[i].playerID);
+						  }
 					  }
 				  }
 			  }
+			  
+			  console.log(allPositions);
 			  
 			  
 			  loadTeams(allPlayers);

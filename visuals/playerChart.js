@@ -14,8 +14,8 @@ var year_Bar = 2014;
 var labelsBar = ["League Average", "Team Average", "Position Average", "Player Average"]; 
 
 var margin = {top: 20, right: 30, bottom: 30, left: 40},
-    width_Bar = 960 - margin.left - margin.right,
-    height_Bar = 500 - margin.top - margin.bottom;
+    width_Bar = 600 - margin.left - margin.right,
+    height_Bar = 270 - margin.top - margin.bottom;
 
 var y_Bar = d3.scale.linear()
     .domain([0, 1])

@@ -27,6 +27,7 @@ function loadTeams(players) {
 			}
 		}
 			
+		console.log(allTeams);
 		  
 	});
 }
