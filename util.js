@@ -87,7 +87,12 @@ function roundToThree(num) {
 }
 
 
-function myFunction(){
+function updatePosition(position){
 
-	document.getElementById("first-base").innerHTML = "YOU CLICKED ME!";
+	document.getElementById("first-base").innerHTML = position;
+}
+
+function updateTeam(team){
+
+	document.getElementById("third-base").innerHTML = position;
 }
