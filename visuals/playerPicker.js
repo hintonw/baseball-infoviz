@@ -33,3 +33,20 @@ function drawPlayerPicker() {
       .attr("class", "list-group-item")
       .text(function(d) { return allPlayers_Picker[d].name; });
 }
+
+function drawPlayerList(playersToDraw) {
+
+
+	  d3.select("#viewport").selectAll("ul").remove();
+	  
+	  pickerList = d3.select("#viewport")
+	      .append("ul")
+	      .attr("class", "list-group");
+	  
+	  pickerList.selectAll("li")
+	      .data(playersToDraw)
+	      .enter()
+	      .append("li")
+	      .attr("class", "list-group-item")
+	      .text(function(d) { return allPlayers_Picker[d].name; });
+}
