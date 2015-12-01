@@ -94,5 +94,5 @@ function updatePosition(position){
 
 function updateTeam(team){
 
-	document.getElementById("third-base").innerHTML = position;
+	document.getElementById("third-base").innerHTML = team;
 }
