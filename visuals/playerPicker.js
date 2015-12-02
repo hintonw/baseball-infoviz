@@ -7,6 +7,7 @@ var pickerWidth = 280,
 
 var allPlayers_Picker;
 var currentPickerPlayers = [];
+var currentPlayersPicked = [];
 
 var pickerList;
 
@@ -22,6 +23,8 @@ function registerPickerPlayers(allPlayers) {
 
 function drawPlayerPicker() {
 
+  d3.select("#viewport").selectAll("ul").remove();
+
   pickerList = d3.select("#viewport")
       .append("ul")
       .attr("class", "list-group");
@@ -31,24 +34,15 @@ function drawPlayerPicker() {
       .enter()
       .append("li")
       .attr("class", "list-group-item")
-      .text(function(d) { return allPlayers_Picker[d].name; });
-
-  d3.select("#viewport").selectAll("ul").selectAll("li")
-      .append("span")
-      .attr("class", "glyphicon glyphicon-remove")
-      .style("float", "right")
-      .style("color", "gray");
-
-      d3.select("#viewport").selectAll("ul").selectAll("li")
+      .text(function(d) { return allPlayers_Picker[d].name; })
       .append("span")
       .attr("class", "glyphicon glyphicon-ok")
       .style("float", "right")
-      .style("padding-right", "5px")
-      .style("color", "gray");
+      .style("color", "gray")
+      .on("click", function(d) { addToCurrent(d); });
 }
 
 function drawPlayerList(playersToDraw) {
-
 
 	  d3.select("#viewport").selectAll("ul").remove();
 	  
@@ -62,4 +56,31 @@ function drawPlayerList(playersToDraw) {
 	      .append("li")
 	      .attr("class", "list-group-item")
 	      .text(function(d) { return allPlayers_Picker[d].name; });
+
+    d3.select("#viewport").selectAll("ul").selectAll("li")
+        .append("span")
+        .attr("class", "glyphicon glyphicon-remove")
+        .style("float", "right")
+        .style("color", "gray");
+
+    d3.select("#viewport").selectAll("ul").selectAll("li")
+        .append("span")
+        .attr("class", "glyphicon glyphicon-ok")
+        .style("float", "right")
+        .style("padding-right", "5px")
+        .style("color", "gray")
+        .on("click", addToCurrent);
+
+}
+
+function removeFromCurrent(playerToRemove) {
+  currentPlayersPicked.splice(playerToRemove, 1);
+}
+
+function addToCurrent(playerToAdd) {
+  if (currentPlayersPicked.indexOf(playerToAdd) > -1) {
+    removeFromCurrent(playerToAdd);
+  } else {
+    currentPlayersPicked.push(playerToAdd);
+  }
 }
