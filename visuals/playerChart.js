@@ -155,7 +155,7 @@ function getBarDataFor(newPlayer,newStat) {
 
   if (player != null && player != NaN && player != undefined) {
       b = averageTeam(playerId);  
-      //c = averagePosition(playerId); 
+      c = averagePosition(playerId);  
       if (player.data[year_Bar][currentStatBar] != undefined && player.data[year_Bar][currentStatBar] != NaN && 
           player.data[year_Bar][currentStatBar] != null){
         d = player.data[year_Bar][currentStatBar];  
@@ -210,6 +210,35 @@ function averageTeam(newPlayer) {
   } 
   return 0; 
 
+} 
+
+function averagePosition(newPlayer){
+  var posBar = allPlayers_Bar[newPlayer].data[year_Bar].positions[0];  
+  console.log(posBar);  
+
+  var pIDs = Object.keys(allPlayers_Bar);
+  var val = 0; 
+  var count = 0;  
+  for (var i = 0; i < pIDs.length; i++) {  
+    var pop = pIDs[i];  
+    var p = allPlayers_Bar[pop];    
+    if ( p != undefined ){
+      if (p.data != undefined){  
+       if (year_Bar in p.data && p.data[year_Bar].positions != undefined && p.data[year_Bar].positions != null && p.data[year_Bar].positions != NaN){  
+        if (p.data[year_Bar].positions[0] == posBar) {
+          count++;   
+          if (p.data[year_Bar][currentStatBar] !== undefined && !isNaN(p.data[year_Bar][currentStatBar])){
+            val += p.data[year_Bar][currentStatBar]; 
+          }  
+        }
+       }
+      }
+    }
+  } 
+  if (count != 0 && val !=0){
+    return val /=count; 
+  } 
+  return 0; 
 }
 
 
