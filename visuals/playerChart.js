@@ -139,7 +139,7 @@ function drawBarChart() {
     .enter().append("text")
       .attr("class", "bar")
       .attr("text-anchor", "left") 
-      .attr("x", function(d,i) { return (width_Bar/4)*i ;  })
+      .attr("x", function(d,i) { return (width_Bar/4)*i + width_Bar/8 ;  })
       .attr("y", function(d) { return y_Bar(d); })
       .text(function(d) { return Math.round(d*100)/100; });
 	
