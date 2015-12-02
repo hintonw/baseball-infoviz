@@ -65,6 +65,7 @@ function drawTrendChart() {
 	      .on('change',function() {
 	    	  currentStat = d3.select('.trendSelect').property('value');
         	  updateChart(currentStat);
+        	  updateBarChart(currentTrendPlayers[0], currentStat); 
           })
 	    .selectAll('option')
 	      .data(getAllStatNames()).enter()
