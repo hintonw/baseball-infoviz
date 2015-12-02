@@ -1,3 +1,24 @@
+var statWeight = {
+		"G": .05,
+		"AB": .05,
+		"AVG": 50,
+		"R": .5,
+		"hitterH": .5,
+		'2B': .2,
+		'3B': .2,
+		"HR": .3,
+		"RBI": .5,
+		"SB": .4,
+		"hitterSO": -.2,
+		"hitterBB": .2,
+		"W": .4,
+		"ERA": -.2,
+		"pitchBB": .4,
+		"pitchH": .4,
+		"pitchSO": .4,
+		"SV": 3,
+};
+
 // TODO this may need to be done for our data
 function batterType(d) {
   d.G = +d.G;
@@ -74,11 +95,9 @@ function getAverageStatsForYear(year, allPlayers) {
 		}
 	}
 	
-	// for (var i = 0; i < result.length; i++) {
-	// 	console.log(result[i]);
-	// 	console.log(counts[i]);
-	// 	result[i] /= counts[i];
-	// }
+	for (var i = 0; i < result.length; i++) {
+		result[i] /= counts[i];
+	}
 	return result;
 }
 
@@ -95,4 +114,25 @@ function updatePosition(position){
 function updateTeam(team){
 
 	document.getElementById("third-base").innerHTML = team;
+}
+
+function sortPlayers(players, allPlayers) {
+	players.sort(function(player1, player2) {
+		var score1 = 0;
+		var score2 = 0;
+		var player1Data = allPlayers[player1].data[2014];
+		var player2Data = allPlayers[player2].data[2014];
+		for (var curStat in player1Data) {
+			if(player1Data.hasOwnProperty(curStat) && typeof player1Data[curStat] === 'number') {
+				score1 += statWeight[curStat] * player1Data[curStat];
+			}
+		}
+		for (var curStat in player2Data) {
+			if(player2Data.hasOwnProperty(curStat) && typeof player2Data[curStat] === 'number') {
+				score2 += statWeight[curStat] * player2Data[curStat];
+			}
+		}
+		return -(score1 - score2);
+	});
+	return players;
 }

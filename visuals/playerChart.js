@@ -7,11 +7,13 @@ var allPlayers_Bar;
 var currentPlayer;  
 var currentStatBar = "AVG"; 
 var width_Bar, height_Bar;  
-var barData = [.25, .5, 1, .75];  
+var barData = [0, 0, 0, 0];  
 var leagueAverages_Bar;   
-var year_Bar = 2014; 
+var year_Bar = 2014;  
 
-var labelsBar = ["League Average", "Team Average", "Position Average", "Player Average"]; 
+
+
+var labelsBar = ["League Average", "Team Average", "Position Average", "Player"]; 
 
 var margin = {top: 20, right: 30, bottom: 30, left: 40},
     width_Bar = 600 - margin.left - margin.right,
@@ -64,6 +66,7 @@ function drawBarChart() {
     .attr("transform", "translate(0," + height_Bar + ")")
     .call(xAxis_Bar);
 
+
     svg_Bar.selectAll(".bar")
     	.data(barData)
   	.enter().append("rect")
@@ -75,21 +78,35 @@ function drawBarChart() {
 
      svg_Bar.selectAll(".bar")
      	.attr("class","bar")
-    	.style("fill", function(d, i) { return color_Bar(i); }) 
+
+    	.style("fill", function(d, i) { return color_Bar(i); })   
+
+      
+
 	
 }
 
- function updateBarChart(newPlayer) {
+ function updateBarChart(newPlayer, newStat) {
+    currentPlayer = newPlayer; 
+    currentStatBar = newStat; 
+ 		barData = getBarDataFor(currentPlayer, currentStatBar);   
 
- 		barData = getBarDataFor();  
 
+    labelsBar = getLabels(currentPlayer); 
+    
+    x_Bar.domain(labelsBar);  
+    xAxis_Bar.scale(x_Bar); 
+ 		
  		//var svg = d3.select("#barChart").transition();
-
+ 		
  		var maxBarStat = getMaxStatVal(barData); 
- 		y_Bar.domain([0,1.5*maxBarStat]);  
+ 		y_Bar.domain([0,1.75*maxBarStat]);  
  		yAxis_Bar.scale(y_Bar); 
 
- 		svg_Bar.select(".y.axis").remove();  
+ 		svg_Bar.select(".y.axis").remove();   
+    svg_Bar.select(".x.axis").remove();  
+    svg_Bar.selectAll("text.bar").remove();  
+
  		svg_Bar.append("g")
       		.attr("class", "y axis")
       		.call(yAxis_Bar)
@@ -99,6 +116,11 @@ function drawBarChart() {
       		.attr("dy", ".71em")
       		.style("text-anchor", "end")
       		.text(currentStatBar);
+
+    svg_Bar.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height_Bar + ")")
+      .call(xAxis_Bar);
 
 
 		svg_Bar.selectAll(".bar")
@@ -112,7 +134,14 @@ function drawBarChart() {
     	 	.attr("class","bar")
     		.style("fill", function(d, i) { return color_Bar(i); }) 
 		
-    	
+    svg_Bar.selectAll("text.bar")
+      .data(barData)
+    .enter().append("text")
+      .attr("class", "bar")
+      .attr("text-anchor", "left") 
+      .attr("x", function(d,i) { return (width_Bar/4)*i + width_Bar/8 ;  })
+      .attr("y", function(d) { return y_Bar(d); })
+      .text(function(d) { return Math.round(d*100)/100; });
 	
 
  }
@@ -124,41 +153,53 @@ function registerBarPlayers(allPlayers) {
 
 }
 
-
+function addPlayerBar(newPlayer){ 
+  currentPlayer = newPlayer; 
+  updateBarChart(currentPlayer, currentStatBar);
+}
 // var playerIds = Object.keys(allPlayers_Bar);
 // var playerId = playerIds[0];
 // var player = allPlayers[playerId];
 
 //Pass in a playerID 
-function getBarDataFor() { 
+function getBarDataFor(newPlayer,newStat) { 
 
-	var playerIds = Object.keys(allPlayers_Bar);
-    var playerId = playerIds[15];
+	currentStatBar = newStat; 
+  var playerId = newPlayer;
 	var player = allPlayers_Bar[playerId]; 
 	
 
-	console.log(player); 
-
 	var ret = [];
 	var year = year_Bar; 
-	var d = player.data[year_Bar][currentStatBar]; 
+  //League Average
+  var a = 0;
+  //Team Average 
+  var b = 0;
+  //Position Average
+  var c = 0; 
+  //Player Average 
+  var d = 0;  
+
+  if (player != null && player != NaN && player != undefined) {
+      b = averageTeam(playerId);  
+      c = averagePosition(playerId);  
+      if (player.data[year_Bar][currentStatBar] != undefined && player.data[year_Bar][currentStatBar] != NaN && 
+          player.data[year_Bar][currentStatBar] != null){
+        d = player.data[year_Bar][currentStatBar];  
+      }
+  }
 
 	var i = getAllStatNames().indexOf(currentStatBar);   
-	var a = leagueAverages_Bar[i];  
-
-	//TODO: Find Team average for stat 
-	var b = 0; 
-
-	//TODO: Find Position Average for Stat 
-	var c = 0; 
+	var a = leagueAverages_Bar[i];    
 
 	ret = [a,b,c,d]; 
 	return ret;
 }
 
-function getMaxStatVal(data){
+function getMaxStatVal(data){ 
 	return d3.max(data); 
-}
+} 
+
 function shallowBarCopyOf(oldObj) {
     var newObj = {};
     for(var i in oldObj) {
@@ -167,7 +208,69 @@ function shallowBarCopyOf(oldObj) {
         }
     }
     return newObj;
-}  
+}   
+
+function averageTeam(newPlayer) {
+  var teamBarID = allPlayers_Bar[newPlayer].data[year_Bar].teamID;    
+
+  var pIDs = Object.keys(allPlayers_Bar);
+  var val = 0; 
+  var count = 0;  
+  for (var i = 0; i < pIDs.length; i++) {  
+    var pop = pIDs[i];  
+    var p = allPlayers_Bar[pop];    
+    if ( p != undefined ){
+      if (p.data != undefined){  
+       if (year_Bar in p.data){ 
+        if (p.data[year_Bar].teamID == teamBarID) {
+          count++;   
+          if (p.data[year_Bar][currentStatBar] !== undefined && !isNaN(p.data[year_Bar][currentStatBar])){
+            val += p.data[year_Bar][currentStatBar]; 
+          }  
+        }
+       }
+      }
+    } 
+  }
+  if (count != 0 && val !=0){
+    return val /=count; 
+  } 
+  return 0; 
+
+} 
+
+function averagePosition(newPlayer){
+  var posBar = allPlayers_Bar[newPlayer].data[year_Bar].positions[0];   
+
+  var pIDs = Object.keys(allPlayers_Bar);
+  var val = 0; 
+  var count = 0;  
+  for (var i = 0; i < pIDs.length; i++) {  
+    var pop = pIDs[i];  
+    var p = allPlayers_Bar[pop];    
+    if ( p != undefined ){
+      if (p.data != undefined){  
+       if (year_Bar in p.data && p.data[year_Bar].positions != undefined && p.data[year_Bar].positions != null && p.data[year_Bar].positions != NaN){  
+        if (p.data[year_Bar].positions[0] == posBar) {
+          count++;   
+          if (p.data[year_Bar][currentStatBar] !== undefined && !isNaN(p.data[year_Bar][currentStatBar])){
+            val += p.data[year_Bar][currentStatBar]; 
+          }  
+        }
+       }
+      }
+    }
+  } 
+  if (count != 0 && val !=0){
+    return val /=count; 
+  } 
+  return 0; 
+} 
+
+function getLabels(newPlayer){
+  return ["League Average" ,allPlayers_Bar[newPlayer].data[year_Bar].teamID + " Average",allPlayers_Bar[newPlayer].data[year_Bar].positions[0] +" Average",allPlayers_Bar[newPlayer].name];  
+
+}
 
 
 

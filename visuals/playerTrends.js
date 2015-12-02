@@ -2,10 +2,10 @@ var currentTrendPlayers = [];
 var currentStat = "AVG";
 
 var margin_trend = {top: 30, right: 20, bottom: 30, left: 50},
-	width_trend = 600 - margin_trend.left - margin_trend.right,
+	width_trend = 800 - margin_trend.left - margin_trend.right,
 	height_trend = 270 - margin_trend.top - margin_trend.bottom;
 
-var x_trend = d3.scale.ordinal().rangeRoundBands([0, width_trend]);
+var x_trend = d3.scale.ordinal().rangeRoundBands([0, width_trend - 200]);
 var y_trend = d3.scale.linear().range([height_trend, 0]);
 
 var xAxis_trend = d3.svg.axis().scale(x_trend)
@@ -23,7 +23,7 @@ var svg_trend = d3.select("#trendsChart")
 	.attr("transform", "translate(" + margin_trend.left + "," + margin_trend.top + ")");
 
 var allPlayers_trend;
-var years_trend = rangeOf(2000, 2014);
+var years_trend = abbreviate(rangeOf(2000, 2014));
 var colors_trend;
 var circlesG = svg_trend.append("g")                            
 				  .style("display", "none");
@@ -56,7 +56,7 @@ function drawTrendChart() {
     
     svg_trend.append("g")
 	    .attr("class", "legendOrdinal")
-	    .attr("transform", "translate(" + (width_trend - 200) + ",0)");
+	    .attr("transform", "translate(" + (width_trend - 150) + ",50)");
     
     d3.select('#trendsPicker')
 	    .append('p')
@@ -65,6 +65,7 @@ function drawTrendChart() {
 	      .on('change',function() {
 	    	  currentStat = d3.select('.trendSelect').property('value');
         	  updateChart(currentStat);
+        	  updateBarChart(currentTrendPlayers[0], currentStat); 
           })
 	    .selectAll('option')
 	      .data(getAllStatNames()).enter()
@@ -94,7 +95,7 @@ function drawTrendChart() {
         for (var t = 0; t < currentTrendPlayers.length; t++) {
         	
         	var data = getDataFor(currentTrendPlayers[t]);
-        	var curYear = years_trend[j];
+        	var curYear = abbrvToYear(years_trend[j]);
         	var curStat = null;
         	for (var r = 0; r < data.length; r++) {
         		if (data[r].year == curYear) {
@@ -106,18 +107,18 @@ function drawTrendChart() {
         	
         	circlesG.select("circle.y" + t)                         
             	.attr("transform",                           
-                      "translate(" + (x_trend(curYear) + x_trend.rangeBand()/2) + "," +       
+                      "translate(" + (x_trend(abbreviate([curYear])) + x_trend.rangeBand()/2) + "," +       
                                      y_trend(curStat) + ")");  
         	
         	circlesG.select("text.y1" + t)
 	            .attr("transform",
-	            		"translate(" + (x_trend(curYear) + x_trend.rangeBand()/2) + "," +       
+	            		"translate(" + (x_trend(abbreviate([curYear])) + x_trend.rangeBand()/2) + "," +       
                         y_trend(curStat) + ")")
 	            .text(roundToThree(curStat));
 	
 	        circlesG.select("text.y2" + t)
 	            .attr("transform",
-	            		"translate(" + (x_trend(curYear) + x_trend.rangeBand()/2) + "," +       
+	            		"translate(" + (x_trend(abbreviate([curYear])) + x_trend.rangeBand()/2) + "," +       
                         y_trend(curStat) + ")")
 	            .text(roundToThree(curStat));
         }
@@ -131,7 +132,7 @@ function registerTrendPlayers(allPlayers) {
 function updateChart(newStat) {
 	
 	var maxStat = 1;
-	var range = rangeOf(2000, 2014);
+	var range = abbreviate(rangeOf(2000, 2014));
 	if (currentTrendPlayers.length != 0) {
 		maxStat = maxStatValue(newStat);
 		range = getMaxRange();
@@ -225,7 +226,7 @@ function removePlayerTrend(player) {
 
 function makeLineFor(player) {
 	var valueline = d3.svg.line()
-	    .x(function(d) { return x_trend(d.year); })
+	    .x(function(d) { return x_trend(abbreviate([d.year])); })
 	    .y(function(d) {
 	    	if (d[currentStat] === undefined || d[currentStat] === NaN) {
 	    		return y_trend(0.0);
@@ -238,7 +239,7 @@ function makeLineFor(player) {
 
 function makeLineWith(data) {
 	var valueline = d3.svg.line()
-	    .x(function(d) { return x_trend(d.year) + + x_trend.rangeBand()/2; })
+	    .x(function(d) { return x_trend(abbreviate([d.year])) + + x_trend.rangeBand()/2; })
 	    .y(function(d) {
 	    	if (d[currentStat] === undefined || d[currentStat] === NaN) {
 	    		console.log("here");
@@ -261,6 +262,15 @@ function getDataFor(player) {
 		res.push(d);
 	}
 	return res;
+}
+
+function abbrvToYear(abbrvYearStr) {
+	var abbrvYear = parseInt(abbrvYearStr.slice(1));
+	if (abbrvYear < 50) {
+		return 2000 + abbrvYear;
+	} else {
+		return 1900 + abbrvYear;
+	}
 }
 
 function rangeOf(from, to) {
@@ -299,7 +309,16 @@ function getMaxRange() {
 			min = Math.min(min, year);
 		}
 	}
-	return rangeOf(min, max);
+	return abbreviate(rangeOf(min, max));
+}
+
+function abbreviate(yearRange) {
+	var result = [];
+	for (var i = 0; i < yearRange.length; i++) {
+		var curYear = yearRange[i];
+		result.push("'" + curYear.toString().slice(2));
+	}
+	return result;
 }
 
 function shallowCopy(oldObj) {
