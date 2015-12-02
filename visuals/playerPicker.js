@@ -38,8 +38,17 @@ function drawPlayerPicker() {
       .append("span")
       .attr("class", "glyphicon glyphicon-ok")
       .style("float", "right")
-      .style("color", "gray")
-      .on("click", function(d) { addToCurrent(d); });
+      .style("color", "rgb(200, 200, 200)")
+      .on("click", function(d) { 
+        addToCurrent(d); 
+        d3.select(this).style("color", function(d) {
+          if (d3.select(this).style("color") === "rgb(200, 200, 200)"){
+            return "green";
+          } else {
+            return "rgb(200, 200, 200)";
+          }
+        });
+      });
 }
 
 function drawPlayerList(playersToDraw) {
