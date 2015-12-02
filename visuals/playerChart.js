@@ -9,7 +9,9 @@ var currentStatBar = "AVG";
 var width_Bar, height_Bar;  
 var barData = [0, 0, 0, 0];  
 var leagueAverages_Bar;   
-var year_Bar = 2014; 
+var year_Bar = 2014;  
+
+
 
 var labelsBar = ["League Average", "Team Average", "Position Average", "Player"]; 
 
@@ -64,6 +66,7 @@ function drawBarChart() {
     .attr("transform", "translate(0," + height_Bar + ")")
     .call(xAxis_Bar);
 
+
     svg_Bar.selectAll(".bar")
     	.data(barData)
   	.enter().append("rect")
@@ -75,7 +78,10 @@ function drawBarChart() {
 
      svg_Bar.selectAll(".bar")
      	.attr("class","bar")
-    	.style("fill", function(d, i) { return color_Bar(i); })  
+
+    	.style("fill", function(d, i) { return color_Bar(i); })   
+
+      
 
 	
 }
@@ -83,7 +89,13 @@ function drawBarChart() {
  function updateBarChart(newPlayer, newStat) {
     currentPlayer = newPlayer; 
     currentStatBar = newStat; 
- 		barData = getBarDataFor(currentPlayer, currentStatBar);  
+ 		barData = getBarDataFor(currentPlayer, currentStatBar);   
+
+
+    labelsBar = getLabels(currentPlayer); 
+    
+    x_Bar.domain(labelsBar);  
+    xAxis_Bar.scale(x_Bar); 
  		
  		//var svg = d3.select("#barChart").transition();
  		
@@ -91,7 +103,8 @@ function drawBarChart() {
  		y_Bar.domain([0,1.75*maxBarStat]);  
  		yAxis_Bar.scale(y_Bar); 
 
- 		svg_Bar.select(".y.axis").remove();  
+ 		svg_Bar.select(".y.axis").remove();   
+    svg_Bar.select(".x.axis").remove(); 
  		svg_Bar.append("g")
       		.attr("class", "y axis")
       		.call(yAxis_Bar)
@@ -101,6 +114,11 @@ function drawBarChart() {
       		.attr("dy", ".71em")
       		.style("text-anchor", "end")
       		.text(currentStatBar);
+
+    svg_Bar.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height_Bar + ")")
+      .call(xAxis_Bar);
 
 
 		svg_Bar.selectAll(".bar")
@@ -114,7 +132,14 @@ function drawBarChart() {
     	 	.attr("class","bar")
     		.style("fill", function(d, i) { return color_Bar(i); }) 
 		
-    	
+    svg_Bar.selectAll("text.bar")
+      .data(barData)
+    .enter().append("text")
+      .attr("class", "bar")
+      .attr("text-anchor", "left") 
+      .attr("x", function(d,i) { return (width_Bar/4)*i ;  })
+      .attr("y", function(d) { return y_Bar(d); })
+      .text(function(d) { return Math.round(d*100)/100; });
 	
 
  }
@@ -213,8 +238,7 @@ function averageTeam(newPlayer) {
 } 
 
 function averagePosition(newPlayer){
-  var posBar = allPlayers_Bar[newPlayer].data[year_Bar].positions[0];  
-  console.log(posBar);  
+  var posBar = allPlayers_Bar[newPlayer].data[year_Bar].positions[0];   
 
   var pIDs = Object.keys(allPlayers_Bar);
   var val = 0; 
@@ -239,6 +263,11 @@ function averagePosition(newPlayer){
     return val /=count; 
   } 
   return 0; 
+} 
+
+function getLabels(newPlayer){
+  return ["League Average" ,allPlayers_Bar[newPlayer].data[year_Bar].teamID + " Average",allPlayers_Bar[newPlayer].data[year_Bar].positions[0] +" Average",allPlayers_Bar[newPlayer].name + " Average"];  
+
 }
 
 
