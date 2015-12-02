@@ -13,16 +13,19 @@ var teamsPicker;
 var positionPicker;
 var isFilteredByPosition = false,
     isFilteredByTeam = false;
+var lastPositionPicked = "";
 
 
 var pickerList;
 
 function filterOutRetiredPlayers() {
+  var temp = [];
   for(var i = 0; i < allPlayersArray.length; i++) {
     if (allPlayers_Picker[allPlayersArray[i]].data["2014"] !== undefined) {
-      currentPickerPlayers.push(allPlayersArray[i]);
+      temp.push(allPlayersArray[i]);
     }
   }
+  currentPickerPlayers = temp;
 }
 
 function logPickerPlayers() {
@@ -57,7 +60,7 @@ function drawPlayerPicker() {
       .enter()
       .append("li")
       .attr("class", "list-group-item")
-      .text(function(d) { return allPlayers_Picker[d].name; })
+      .text(function(d) { return allPlayers_Picker[d].name + " | " + allPlayers_Picker[d].data["2014"].teamID; })
       .append("span")
       .attr("class", "glyphicon glyphicon-ok")
       .style("float", "right")
@@ -90,7 +93,7 @@ function drawPlayerList(playersToDraw) {
       .enter()
       .append("li")
       .attr("class", "list-group-item")
-      .text(function(d) { return allPlayers_Picker[d].name; })
+      .text(function(d) { return allPlayers_Picker[d].name + " | " + allPlayers_Picker[d].data["2014"].teamID + lastPositionPicked; })
       .append("span")
       .attr("class", "glyphicon glyphicon-ok")
       .style("float", "right")
@@ -135,7 +138,8 @@ function updateListByTeam(updatedPlayers) {
   if(isFilteredByPosition) {
     var array = [];
     for (var i = 0; i < currentPickerPlayers.length; i++) {
-      if (allPlayers_Picker[currentPickerPlayers[i]].data["2014"] !== undefined && allPlayers_Picker[currentPickerPlayers[i]].data["2014"].teamID === updatedPlayers) {
+      if (allPlayers_Picker[currentPickerPlayers[i]].data["2014"] !== undefined && 
+        allPlayers_Picker[currentPickerPlayers[i]].data["2014"].teamID === updatedPlayers) {
         array.push(currentPickerPlayers[i]);
       }
     }
@@ -152,17 +156,21 @@ function updateListByTeam(updatedPlayers) {
 function updateListByPosition(updatedPlayers) {
   isFilteredByPosition = true;
   var array = Array.from(positionPicker[updatedPlayers]);
-  currentPickerPlayers = array;
+  var temp = [];
+  for (var i = 0; i < array.length; i++) {
+    if (allPlayers_Picker[array[i]].data["2014"] !== undefined) {
+      temp.push(array[i]);
+    }
+  }
+  currentPickerPlayers = temp;
+  lastPositionPicked = " | " + updatedPlayers;
   drawPlayerList(currentPickerPlayers);
 }
 
 function resetPickerList() {
   filterOutRetiredPlayers();
+  lastPositionPicked = "";
   drawPlayerList(currentPickerPlayers);
   isFilteredByTeam = false;
   isFilteredByPosition = false;
-}
-
-function updateList() {
-
 }
