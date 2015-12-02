@@ -151,7 +151,7 @@ function getBarDataFor(newPlayer,newStat) {
   var d = 0;  
 
   if (player != null ) {
-      b = averageTeam(playerId); 
+      //b = averageTeam(playerId); 
       //c = averagePosition();
       d = player.data[year_Bar][currentStatBar]; 
   }
