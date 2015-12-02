@@ -154,7 +154,7 @@ function getBarDataFor(newPlayer,newStat) {
   var d = 0;  
 
   if (player != null && player != NaN && player != undefined) {
-      //b = averageTeam(playerId); 
+      b = averageTeam(playerId);  
       //c = averagePosition(playerId); 
       if (player.data[year_Bar][currentStatBar] != undefined && player.data[year_Bar][currentStatBar] != NaN && 
           player.data[year_Bar][currentStatBar] != null){
@@ -163,8 +163,7 @@ function getBarDataFor(newPlayer,newStat) {
   }
 
 	var i = getAllStatNames().indexOf(currentStatBar);   
-	var a = leagueAverages_Bar[i];   
-  console.log(a); 
+	var a = leagueAverages_Bar[i];    
 
 	ret = [a,b,c,d]; 
 	return ret;
@@ -185,9 +184,31 @@ function shallowBarCopyOf(oldObj) {
 }   
 
 function averageTeam(newPlayer) {
-  var teamBarID = allPlayers_Bar[newPlayer].data[year].teamID;  
-  console.log(teamBarID); 
+  var teamBarID = allPlayers_Bar[newPlayer].data[year_Bar].teamID;    
 
+  var pIDs = Object.keys(allPlayers_Bar);
+  var val = 0; 
+  var count = 0;  
+  for (var i = 0; i < pIDs.length; i++) {  
+    var pop = pIDs[i];  
+    var p = allPlayers_Bar[pop];    
+    if ( p != undefined ){
+      if (p.data != undefined){  
+       if (year_Bar in p.data){ 
+        if (p.data[year_Bar].teamID == teamBarID) {
+          count++;   
+          if (p.data[year_Bar][currentStatBar] !== undefined && !isNaN(p.data[year_Bar][currentStatBar])){
+            val += p.data[year_Bar][currentStatBar]; 
+          }  
+        }
+       }
+      }
+    } 
+  }
+  if (count != 0 && val !=0){
+    return val /=count; 
+  } 
+  return 0; 
 
 }
 
