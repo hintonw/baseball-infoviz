@@ -104,7 +104,9 @@ function drawBarChart() {
  		yAxis_Bar.scale(y_Bar); 
 
  		svg_Bar.select(".y.axis").remove();   
-    svg_Bar.select(".x.axis").remove(); 
+    svg_Bar.select(".x.axis").remove();  
+    svg_Bar.selectAll("text.bar").remove();  
+
  		svg_Bar.append("g")
       		.attr("class", "y axis")
       		.call(yAxis_Bar)
@@ -137,7 +139,7 @@ function drawBarChart() {
     .enter().append("text")
       .attr("class", "bar")
       .attr("text-anchor", "left") 
-      .attr("x", function(d,i) { return (width_Bar/4)*i ;  })
+      .attr("x", function(d,i) { return (width_Bar/4)*i + width_Bar/8 ;  })
       .attr("y", function(d) { return y_Bar(d); })
       .text(function(d) { return Math.round(d*100)/100; });
 	
@@ -266,7 +268,7 @@ function averagePosition(newPlayer){
 } 
 
 function getLabels(newPlayer){
-  return ["League Average" ,allPlayers_Bar[newPlayer].data[year_Bar].teamID + " Average",allPlayers_Bar[newPlayer].data[year_Bar].positions[0] +" Average",allPlayers_Bar[newPlayer].name + " Average"];  
+  return ["League Average" ,allPlayers_Bar[newPlayer].data[year_Bar].teamID + " Average",allPlayers_Bar[newPlayer].data[year_Bar].positions[0] +" Average",allPlayers_Bar[newPlayer].name];  
 
 }
 
