@@ -104,7 +104,9 @@ function drawBarChart() {
  		yAxis_Bar.scale(y_Bar); 
 
  		svg_Bar.select(".y.axis").remove();   
-    svg_Bar.select(".x.axis").remove(); 
+    svg_Bar.select(".x.axis").remove();  
+    svg_Bar.selectAll("text.bar").remove();  
+
  		svg_Bar.append("g")
       		.attr("class", "y axis")
       		.call(yAxis_Bar)
