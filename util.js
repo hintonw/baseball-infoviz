@@ -124,8 +124,6 @@ function sortPlayers(players, allPlayers) {
 		var player2Data = allPlayers[player2].data[2014];
 		for (var curStat in player1Data) {
 			if(player1Data.hasOwnProperty(curStat) && typeof player1Data[curStat] === 'number') {
-				console.log(statWeight[curStat]);
-				console.log(player1Data[curStat]);
 				score1 += statWeight[curStat] * player1Data[curStat];
 			}
 		}
