@@ -94,7 +94,7 @@ function drawPlayerList(playersToDraw) {
       .append("span")
       .attr("class", "glyphicon glyphicon-ok")
       .style("float", "right")
-      .style("color", "rgb(200, 200, 200)")
+      .style("color", function(d) { return checkIfPicked(d); })
       .on("click", function(d) { 
         addToCurrent(d); 
         d3.select(this).style("color", function(d) {
@@ -109,6 +109,14 @@ function drawPlayerList(playersToDraw) {
         });
       });
 
+}
+
+function checkIfPicked(player) {
+  if (currentPlayersPicked.indexOf(player) > -1) {
+    return "green";
+  } else {
+    return "rgb(200, 200, 200)";
+  }
 }
 
 function removeFromCurrent(playerToRemove) {
