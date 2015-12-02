@@ -8,6 +8,7 @@ var pickerWidth = 280,
 var allPlayers_Picker;
 var currentPickerPlayers = [];
 var currentPlayersPicked = [];
+var teamsPicker;
 
 var pickerList;
 
@@ -60,25 +61,25 @@ function drawPlayerList(playersToDraw) {
 	      .attr("class", "list-group");
 	  
 	  pickerList.selectAll("li")
-	      .data(playersToDraw)
-	      .enter()
-	      .append("li")
-	      .attr("class", "list-group-item")
-	      .text(function(d) { return allPlayers_Picker[d].name; });
-
-    d3.select("#viewport").selectAll("ul").selectAll("li")
-        .append("span")
-        .attr("class", "glyphicon glyphicon-remove")
-        .style("float", "right")
-        .style("color", "gray");
-
-    d3.select("#viewport").selectAll("ul").selectAll("li")
-        .append("span")
-        .attr("class", "glyphicon glyphicon-ok")
-        .style("float", "right")
-        .style("padding-right", "5px")
-        .style("color", "gray")
-        .on("click", addToCurrent);
+      .data(currentPickerPlayers)
+      .enter()
+      .append("li")
+      .attr("class", "list-group-item")
+      .text(function(d) { return allPlayers_Picker[d].name; })
+      .append("span")
+      .attr("class", "glyphicon glyphicon-ok")
+      .style("float", "right")
+      .style("color", "rgb(200, 200, 200)")
+      .on("click", function(d) { 
+        addToCurrent(d); 
+        d3.select(this).style("color", function(d) {
+          if (d3.select(this).style("color") === "rgb(200, 200, 200)"){
+            return "green";
+          } else {
+            return "rgb(200, 200, 200)";
+          }
+        });
+      });
 
 }
 
@@ -92,4 +93,13 @@ function addToCurrent(playerToAdd) {
   } else {
     currentPlayersPicked.push(playerToAdd);
   }
+}
+
+function registerTeamsPicker(allTeams) {
+  teamsPicker = allTeams;
+}
+
+function updatePlayerList(updatedPlayers) {
+  currentPickerPlayers = teamsPicker[updatedPlayers].players["2014"];
+  drawPlayerList(currentPickerPlayers);
 }
