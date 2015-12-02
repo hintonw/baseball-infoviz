@@ -125,6 +125,7 @@ d3.csv("raw_data/2014/Master.csv", function(error1, master) {
 			  registerTrendPlayers(allPlayers);
 			  registerBarPlayers(allPlayers);
 			  registerPickerPlayers(allPlayers);
+			  registerPositionsPicker(allPositions);
 			  drawPlayerPicker();
 			  // NOTE: batter and pitcher objects have different attributes
 			
