@@ -54,6 +54,8 @@ function drawPlayerPicker() {
   pickerList = d3.select("#viewport")
       .append("ul")
       .attr("class", "list-group");
+  
+  currentPickerPlayers = sortPlayers(currentPickerPlayers, allPlayers_Picker);
 
   pickerList.selectAll("li")
       .data(currentPickerPlayers)
@@ -82,6 +84,8 @@ function drawPlayerPicker() {
 
 function drawPlayerList(playersToDraw) {
 
+	  playersToDraw = sortPlayers(playersToDraw, allPlayers_Picker);	
+	
 	  d3.select("#viewport").selectAll("ul").remove();
 	  
 	  pickerList = d3.select("#viewport")
