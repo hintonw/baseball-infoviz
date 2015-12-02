@@ -83,7 +83,7 @@ function drawBarChart() {
  function updateBarChart(newPlayer, newStat) {
     currentPlayer = newPlayer; 
     currentStatBar = newStat; 
- 		barData = getBarDataFor(newPlayer, newStat);  
+ 		barData = getBarDataFor(currentPlayer, currentStatBar);  
  		
  		//var svg = d3.select("#barChart").transition();
  		
@@ -126,7 +126,10 @@ function registerBarPlayers(allPlayers) {
 
 }
 
-
+function addPlayerBar(newPlayer){ 
+  currentPlayer = newPlayer; 
+  updateBarChart(currentPlayer, currentStatBar);
+}
 // var playerIds = Object.keys(allPlayers_Bar);
 // var playerId = playerIds[0];
 // var player = allPlayers[playerId];
@@ -150,10 +153,13 @@ function getBarDataFor(newPlayer,newStat) {
   //Player Average 
   var d = 0;  
 
-  if (player != null ) {
+  if (player != null && player != NaN && player != undefined) {
       //b = averageTeam(playerId); 
-      //c = averagePosition();
-      d = player.data[year_Bar][currentStatBar]; 
+      //c = averagePosition(playerId); 
+      if (player.data[year_Bar][currentStatBar] != undefined && player.data[year_Bar][currentStatBar] != NaN && 
+          player.data[year_Bar][currentStatBar] != null){
+        d = player.data[year_Bar][currentStatBar];  
+      }
   }
 
 	var i = getAllStatNames().indexOf(currentStatBar);   

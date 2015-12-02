@@ -42,7 +42,8 @@ function drawPlayerPicker() {
       .style("color", "rgb(200, 200, 200)")
       .on("click", function(d) { 
         addToCurrent(d); 
-        addPlayerTrend(d);
+        addPlayerTrend(d); 
+        addPlayerBar(d); 
         d3.select(this).style("color", function(d) {
           if (d3.select(this).style("color") === "rgb(200, 200, 200)"){
             return "green";
