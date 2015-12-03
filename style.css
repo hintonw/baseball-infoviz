@@ -32,6 +32,10 @@ img{
     width:100%;
 }
 
+#logo{
+    cursor: default;
+}
+
 #AmericanLeague{
     float:right;
     width:17%;
@@ -44,7 +48,7 @@ img{
 }
 
 #AllTeams{
-    margin:0 auto;width:17%;
+    margin:0 auto;width:11%;
 }
 
 .NLDivision{
