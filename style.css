@@ -27,6 +27,23 @@ img{
     cursor: pointer;
 }
 
+.circle:hover{
+    cursor: pointer;
+}
+
+.base:hover{
+    cursor: pointer;
+}
+
+#pitchers-plate:hover{
+
+    cursor: pointer;
+}
+
+#pitchers-mound:hover{
+    cursor: pointer;
+}
+
 #Teams{
 
     width:100%;
@@ -133,13 +150,6 @@ h5{
 
 }
 
-.circle:hover{
-    cursor: pointer;
-}
-
-.base:hover{
-    cursor: pointer;
-}
 #first-base{
     top:296px;
     left:608px;
@@ -212,10 +222,6 @@ h5{
     background-color:white;
 }
 
-#pitchers-plate:hover{
-
-    cursor: pointer;
-}
 
 .batters-box{
     position:absolute;

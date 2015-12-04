@@ -6,10 +6,13 @@
     <link href='style.css' rel='stylesheet' type='text/css'>
   </head>
   <body>
+
+    <!-- Adds Group's logo created by Piero-->
         <div style="center">
             <img id="logo" src="visuals/Team Logos/mainLogo.jpg" height= "45px" width ="300px">
         </div>
 
+        <!-- Creates Headers for the leagues and divisions while also placing all teams in order of place they finished within their divison -->
         <div id="Teams">
             <div id="NationalLeague" class="League">
                 <h2>National League</h2>
@@ -116,6 +119,8 @@
                 </div>
 
             </div>
+
+            <!-- Adds logo of MLB as sort of a back button to select all Teams -->
             <div id="AllTeams">
 
                 <h2>All Teams</h2>
@@ -123,6 +128,8 @@
 
             </div>  
         </div>
+
+        <!-- Creates the baseball field. Basic structure was imported: such as grass and base lines however sizes and locations were changed some extraneous things were removed such as grass pattern see CSS for more but also added onclick capabilities for filtering and also added the outfield circle and shortstop circle -->
 
         <div id="stadium">
             <div id="field" class="grass"></div>
@@ -137,14 +144,16 @@
             <div id="third-base" class="base" onclick="updateListByPosition('3B')"></div>
             <div id="home-plate" class="base" onclick="updateListByPosition('C')"></div>
             <div id="outfield" class="base" onclick="updateListByPosition('OF')"></div>
-            <div id="pitchers-mound" onclick="updateListByPosition('P')"></div> <!-- pitchers-mound and pitchers plate should be  same function -->
+            <div id="pitchers-mound" onclick="updateListByPosition('P')"></div>
             <div id="pitchers-plate"onclick="updateListByPosition('P')"></div>
             <div id="batters-box-right" class="batters-box"></div>
             <div id="batters-box-left" class="batters-box"></div>
 
             <div id="viewport" data-spy="scroll" data-target="#myScrollspy" data-offset="0">
             </div>
-            
+        
+
+        <!-- Adds the different charts: trend chart, player picker (list of players), and bar chart -->    
         </div>
         <div id="trends">
             <div id="trendsChart"></div>
