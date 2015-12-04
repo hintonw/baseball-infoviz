@@ -1,4 +1,5 @@
 //playerPicker.js controls the List of players and how they are arranged and drawn.
+// All of this code was written from scratch. The list was integrated with Bootstrap and is described below.
 
 var pickerWidth = 280,
     pickerHeight = 280;
@@ -52,7 +53,8 @@ function drawPlayerPicker() {
 
   d3.select("#viewport").selectAll("ul").remove();
 
-  //This appends a BootStrap list-group ul to the viewport which allows scrolling in the viewport.
+  //This appends a Bootstrap list-group ul to the viewport which allows scrolling in the viewport.
+  //By adding the class list-group, Bootstrap is able to automatically style the list.
   pickerList = d3.select("#viewport")
       .append("ul")
       .attr("class", "list-group");
@@ -63,6 +65,7 @@ function drawPlayerPicker() {
   //This is where each individial player is added to the list. 
   //It adds a checkmark for each player which allows the player to be selected.
   //It will add players to the different charts and change the color of the checkmark to indicate picked players.
+  //Adding the list-group-item class to the li allows Bootstrap to automatically style the list items.
   pickerList.selectAll("li")
       .data(currentPickerPlayers)
       .enter()
@@ -91,14 +94,21 @@ function drawPlayerPicker() {
 //This function redraws the player list once a filter has been applied to the data.
 function drawPlayerList(playersToDraw) {
 
+    //This sorts the players by our ranking algorithm.
 	  playersToDraw = sortPlayers(playersToDraw, allPlayers_Picker);	
 	
+  //This appends a Bootstrap list-group ul to the viewport which allows scrolling in the viewport.
+  //By adding the class list-group, Bootstrap is able to automatically style the list.
 	  d3.select("#viewport").selectAll("ul").remove();
 	  
 	  pickerList = d3.select("#viewport")
 	      .append("ul")
 	      .attr("class", "list-group");
 	  
+    // This adds the Players to the list, it adds theie name, team abbreviation and the position they play.
+    //It also checks to see if the player is already selected and then draws the Checkmark either grey or
+    //green to indicated if it is not selected or selected, respectively.
+    //Then it takes the selected players and passes them to the trend chart and barchart to be drawn.
 	  pickerList.selectAll("li")
       .data(playersToDraw)
       .enter()
