@@ -1,3 +1,4 @@
+/*sets height of the stadium viz */
 #stadium{
     height: 303px;
 }
@@ -17,46 +18,64 @@ div#bars {
     height: 270px;
 }
 
+/* makes all pictures on hover switch to the pointer cursor so users know the image is clickable also aligns them in the middle */
 img{
    
     cursor: pointer;
     vertical-align: middle;
 }
+/*logo isn't clickable but is an image so overwrite above property so user doesn't think it is clickable */
+#logo{
+    cursor: default;
+}
 
+/* makes checkmarks in the player list switch the cursor to pointer so user knows it is clickable */
 .glyphicon{
     cursor: pointer;
 }
+
+/* makes outfield and shortstop circle switch the cursor to pointer so user knows it is clickable */
 
 .circle:hover{
     cursor: pointer;
 }
 
+/* makes hovering over bases switch the cursor to pointer so user knows it is clickable */
+
 .base:hover{
     cursor: pointer;
 }
+
+/* makes hovering over pitcher plate switch the cursor to pointer so user knows it is clickable */
 
 #pitchers-plate:hover{
 
     cursor: pointer;
 }
 
+/* makes hovering over the pitcher's mound switch the cursor to pointer so user knows it is clickable */
+
+
 #pitchers-mound:hover{
     cursor: pointer;
 }
+
+/*Makes the div containing the headers wit the league names expand to take up the whole screen */
 
 #Teams{
 
     width:100%;
 }
 
-#logo{
-    cursor: default;
-}
+/*Places the American League header all the way on the right of the #Teams div and gives it 17% of the screen */
+
 
 #AmericanLeague{
     float:right;
     width:17%;
 }
+
+/*Places the National League header all the way on the left of the #Teams div and gives it 17% of the screen */
 
 #NationalLeague{
 
@@ -64,17 +83,27 @@ img{
     width:17%;
 }
 
+/*Places the All team header in the middle of the #Teams div with 11% of the screen*/
+
 #AllTeams{
     margin:0 auto;width:11%;
 }
+
+/*This makes columns of divisions start on the left side of the National League div  */
 
 .NLDivision{
     float: left;
 }
 
+/* This makes the columns of divisions start on the right side of the American League div */
+
+
 .ALDivision{
     float:right;
 }
+
+/* This gives some buffer space on the left and right of teh Central div column so as to space out the images better */
+
 
 #Central{
     margin-left: 10px;
@@ -82,15 +111,21 @@ img{
 }
 
 
+/* This centers the headers within the div*/
 
 h2{
     text-align: center;
 
 }
 
+/*This centers the headers within the div */
+
 h5{
     text-align: center;
 }
+
+
+/*Draws the outfield code was imported with changes made to: top, left, height, and width */
 
 #field{ 
     position:absolute;
@@ -103,6 +138,8 @@ h5{
     background-color:green;
    -webkit-transform: rotate(-45deg);
 }
+
+/*Draws the infield code was imported with changes made to: top, left, height, and width */
 #in-field{ 
     position:absolute;
     top:172px;
@@ -110,10 +147,13 @@ h5{
     height:225px;
     width:225px;
     border-radius:1% 50% 1% 1%;
-    border:1px solid: #836539; /*#9b7653; */
-    background-color:#836539; /*#9b7653;*/
+    border:1px solid: #836539; 
+    background-color:#836539; 
    -webkit-transform: rotate(-45deg);
 }
+
+/*Draws the baselines code was imported with changes made to: top, left, height, and width */
+
 #base-lines{
     position:absolute;
     top: 23px;
@@ -124,6 +164,8 @@ h5{
     border-bottom:2px solid white;
     -webkit-transform: rotate(-45deg);
 }
+
+/*Draws the infield grass code was imported with changes made to: top, left, height, and width */
 #in-field-grass{
     position:absolute;
     top: 251px;
@@ -134,6 +176,8 @@ h5{
     background-color:green;
     -webkit-transform: rotate(-45deg);
 }
+
+/*Sets the rules for bases code was imported with changes made to: height, and width */
 .base{
     position:absolute;
     height:13px;
@@ -143,6 +187,8 @@ h5{
     background-color:white;
 }
 
+/*Sets the rules for circles custom made */
+
 .circle{
     position:absolute;
     border-radius:100% 100% 100% 100%;
@@ -150,11 +196,14 @@ h5{
 
 }
 
+/*Draws the first base code was imported with changes made to: top and left*/
 #first-base{
     top:296px;
     left:608px;
 
 }
+
+/*Draws the second base code was imported with changes made to: top and left*/
 
 #second-base{
     top:191px;
@@ -168,21 +217,14 @@ h5{
 
 }
 
-#on-deck{
-    height:40px;
-    width:40px;
-    
-    top:532px;
-    left:401px;
-
-    border:1px solid #836539;
-    background-color:#836539;
-}
+/*Draws the third base code was imported with changes made to: top and left*/
 
 #third-base{
     top:296px;
     left:380px;
 }
+
+/*Draws home plate code was imported with changes made to: hieght, width, top and left*/
 #home-plate{
     position:absolute;
     height:9px;
@@ -194,13 +236,15 @@ h5{
      -webkit-transform: rotate(45deg);
 }
 
-
+/*Draws the outfield code was imported with changes made to: top and left*/
 #outfield{
     top:138px;
     left:492px;
     border-radius:100% 100% 100% 100%;
 
 }
+
+/*Draws the pitchers mound code was imported with changes made to: height, width, top and left*/
 #pitchers-mound{ 
     position:absolute;
     top:292px;
@@ -212,6 +256,8 @@ h5{
      border:1px solid #836539;
     background-color:#836539;
 }
+
+/*Draws the pitchers plate code was imported with changes made to: top and left*/
 #pitchers-plate{ 
     position:absolute;
     top:315px;
@@ -222,7 +268,7 @@ h5{
     background-color:white;
 }
 
-
+/*Sets the rules for the batters box code was imported with changes made to: height width top and left*/
 .batters-box{
     position:absolute;
     height:15px;
@@ -231,15 +277,20 @@ h5{
     background-color:#836539;
     outline: 2px solid #836539;
 }
+
+/*Draws the right batter box code was imported with changes made to: top and left*/
 #batters-box-right{
     top:427px;
     left:509px;
 }
+
+/*Draws the left batters box code was imported with changes made to: top and left*/
 #batters-box-left{
     top:427px;
     left:481px;
 }
 
+/*Draws the circle that home plate and batters box is on code was imported with changes made to: height width top and left*/
 #batting-circle{ 
     position:absolute;
     top:412px;
@@ -252,18 +303,7 @@ h5{
     background-color:#836539;
 }
 
-#on-deck{
-    position:absolute;
-    top:414px;
-    left:547px;
-    height:40px;
-    width:40px;
-    border-radius:100% 100% 100% 100%;
-    border:1px solid #836539;
-    background-color:#836539;
-}
-
-
+/*colors in the grass */
 .grass{
      background-color: #ac0;
    
