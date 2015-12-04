@@ -1,23 +1,25 @@
-// This should use the allPlayers to draw the player chart and have a function to be called onFilter.
-
-// NOTE: Do not use the same names for variables across files!!
+//playerPicker.js controls the List of players and how they are arranged and drawn.
 
 var pickerWidth = 280,
     pickerHeight = 280;
 
 var allPlayers_Picker,
-    allPlayersArray = [];
-var currentPickerPlayers = [];
-var currentPlayersPicked = [];
-var teamsPicker;
-var positionPicker;
+    allPlayersArray = [],
+    currentPickerPlayers = [],
+    currentPlayersPicked = [];
+
+var teamsPicker,
+    positionPicker;
+
 var isFilteredByPosition = false,
     isFilteredByTeam = false;
-var lastPositionPicked = "";
 
+var lastPositionPicked = "";
 
 var pickerList;
 
+//This function filters out players that have retired before they are drawn to the screen.
+//This is necessary because our data contains player data starting in the early 1900's.
 function filterOutRetiredPlayers() {
   var temp = [];
   for(var i = 0; i < allPlayersArray.length; i++) {
@@ -28,35 +30,39 @@ function filterOutRetiredPlayers() {
   currentPickerPlayers = temp;
 }
 
-function logPickerPlayers() {
-  console.log(allPlayers_Picker);
-  console.log(currentPickerPlayers);
-}
-
+//This creates an array of the playerID's from the data organized in allPlayers.js
 function registerPickerPlayers(allPlayers) {
   allPlayers_Picker = allPlayers;
   allPlayersArray = Object.keys(allPlayers_Picker);
 }
 
+//This creates an array of the teamID's from the data organized in allTeams.js
 function registerTeamsPicker(allTeams) {
   teamsPicker = allTeams;
 }
 
+//This creates an array of the positions from the data organized in allPlayers.js
 function registerPositionsPicker(allPositions){
   positionPicker = allPositions;
 }
 
+//This function draws the initial list with all Active players in the draft.
 function drawPlayerPicker() {
   filterOutRetiredPlayers();
 
   d3.select("#viewport").selectAll("ul").remove();
 
+  //This appends a BootStrap list-group ul to the viewport which allows scrolling in the viewport.
   pickerList = d3.select("#viewport")
       .append("ul")
       .attr("class", "list-group");
   
+  //Our Awesome player ranking algorithm! TM 
   currentPickerPlayers = sortPlayers(currentPickerPlayers, allPlayers_Picker);
 
+  //This is where each individial player is added to the list. 
+  //It adds a checkmark for each player which allows the player to be selected.
+  //It will add players to the different charts and change the color of the checkmark to indicate picked players.
   pickerList.selectAll("li")
       .data(currentPickerPlayers)
       .enter()
@@ -82,6 +88,7 @@ function drawPlayerPicker() {
       });
 }
 
+//This function redraws the player list once a filter has been applied to the data.
 function drawPlayerList(playersToDraw) {
 
 	  playersToDraw = sortPlayers(playersToDraw, allPlayers_Picker);	
@@ -118,6 +125,8 @@ function drawPlayerList(playersToDraw) {
 
 }
 
+//This checks to see if a player has already been selected by the user and returns the color to redraw on the checkmark.
+//I know that it is not typical to check the color to see if a user is already selected but it worked very well in this situation.
 function checkIfPicked(player) {
   if (currentPlayersPicked.indexOf(player) > -1) {
     return "green";
@@ -126,10 +135,12 @@ function checkIfPicked(player) {
   }
 }
 
+//This removes players form the currently selected players drawn on the Trend chart.
 function removeFromCurrent(playerToRemove) {
   currentPlayersPicked.splice(playerToRemove, 1);
 }
 
+//This adds players to the list that is drawn by the trend chart.
 function addToCurrent(playerToAdd) {
   if (currentPlayersPicked.indexOf(playerToAdd) > -1) {
     removeFromCurrent(playerToAdd);
@@ -138,6 +149,8 @@ function addToCurrent(playerToAdd) {
   }
 }
 
+//This first checks if the list is already filtered by position. Then it will filter the list down to the player on 
+//the team indicated by the teamID in updatedPlayers.
 function updateListByTeam(updatedPlayers) {
   if(isFilteredByPosition) {
     var array = [];
@@ -157,6 +170,8 @@ function updateListByTeam(updatedPlayers) {
   }
 }
 
+//This checks to see if the players in the selected positions have relevant data then it updates the list to be drawn to only player
+//who play the selected position in updatedPlayers.
 function updateListByPosition(updatedPlayers) {
   isFilteredByPosition = true;
   var array = Array.from(positionPicker[updatedPlayers]);
@@ -171,6 +186,8 @@ function updateListByPosition(updatedPlayers) {
   drawPlayerList(currentPickerPlayers);
 }
 
+//This is called when the "All Players" button is pressed. It clears the list of players and resets the list 
+//to be the same as it was before any filters were applied.
 function resetPickerList() {
   filterOutRetiredPlayers();
   lastPositionPicked = "";
