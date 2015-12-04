@@ -7,12 +7,15 @@
   </head>
   <body>
 
-    <!-- Adds Group's logo created by Piero-->
+    <!-- Adds Group's logo created by Piero to the top left of the viz-->
         <div style="center">
             <img id="logo" src="visuals/Team Logos/mainLogo.jpg" height= "45px" width ="300px">
         </div>
 
-        <!-- Creates Headers for the leagues and divisions while also placing all teams in order of place they finished within their divison -->
+        <!-- Creates Headers for the leagues and divisions.
+        It also places the team's logo in order of the place they finished within their divison
+        lastly adds on click feature to each image to enable filtering
+         -->
         <div id="Teams">
             <div id="NationalLeague" class="League">
                 <h2>National League</h2>
@@ -120,7 +123,7 @@
 
             </div>
 
-            <!-- Adds logo of MLB as sort of a back button to select all Teams -->
+            <!-- Adds logo of MLB as a back button to select all Teams -->
             <div id="AllTeams">
 
                 <h2>All Teams</h2>
@@ -129,7 +132,7 @@
             </div>  
         </div>
 
-        <!-- Creates the baseball field. Basic structure was imported: such as grass and base lines however sizes and locations were changed some extraneous things were removed such as grass pattern see CSS for more but also added onclick capabilities for filtering and also added the outfield circle and shortstop circle -->
+        <!-- Creates the baseball field. Basic structure was imported: such as grass and base lines however sizes and locations were changed some extraneous things were removed such as grass pattern see CSS for more details. Also added onclick capabilities for filtering and also added the outfield circle and shortstop circle -->
 
         <div id="stadium">
             <div id="field" class="grass"></div>
@@ -157,7 +160,7 @@
             
         </div>
 
-        
+
         <!-- Adds the different charts: trend chart, player picker (list of players), and bar chart -->    
         <div id="trends">
             <div id="trendsChart"></div>
