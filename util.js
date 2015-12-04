@@ -1,3 +1,7 @@
+// This file contains utility functions throughout the rest of the viz
+// All of this was written from scratch.
+
+// This is used in the ranking algorithm as the value of each stat
 var statWeight = {
 		"G": .05,
 		"AB": .05,
@@ -19,7 +23,7 @@ var statWeight = {
 		"SV": 3,
 };
 
-// TODO this may need to be done for our data
+// Data types for the batter CSV
 function batterType(d) {
   d.G = +d.G;
   d.AB = +d.AB;
@@ -36,6 +40,7 @@ function batterType(d) {
   return d;
 }
 
+// Data types for pitcher CSV
 function pitcherType(d) {
   d.W = +d.W;
   d.ERA = +d.ERA;
@@ -46,10 +51,13 @@ function pitcherType(d) {
   return d;
 }
 
+// Data types for team CSV
 function teamType(d) {
   return d;
 }
 
+
+// Gets all the player data for a given year
 function getPlayerDataForYear(year, allPlayers) {
 	var result = [];
 	var playerIds = Object.keys(allPlayers);
@@ -67,10 +75,15 @@ function getPlayerDataForYear(year, allPlayers) {
 	return result;
 }
 
+// Gets all the available stats. Names taken directly from the database.
 function getAllStatNames() {
 	return ['AVG', 'G', 'AB', 'R', 'pitchH', 'hitterH', '2B', '3B', 'HR', 'RBI', 'SB', 'pitchSO', 'hitterSO', 'pitchBB', 'hitterBB', 'W', 'ERA', 'SV'];
 }
 
+
+// Gets the average stats for every player for a given year. This is because
+// for each player, there are multiple data sets for a give year
+// if they were on multliple teams.
 function getAverageStatsForYear(year, allPlayers) {
 	var result = [];
 	var counts = Array.apply(null, Array(getAllStatNames().length)).map(function (_, i) {return 0;});
@@ -101,21 +114,24 @@ function getAverageStatsForYear(year, allPlayers) {
 	return result;
 }
 
+// Rounds to three (for displaying stats).
 function roundToThree(num) {
 	return Math.round(num * 1000) / 1000;
 }
 
-
+// Update displayed position to user
 function updatePosition(position){
 
 	document.getElementById("first-base").innerHTML = position;
 }
 
+// Update displayed team to user
 function updateTeam(team){
 
 	document.getElementById("third-base").innerHTML = team;
 }
 
+// Ranks the players by a weigthed sum of their stats and the weights assigned above
 function sortPlayers(players, allPlayers) {
 	players.sort(function(player1, player2) {
 		var score1 = 0;

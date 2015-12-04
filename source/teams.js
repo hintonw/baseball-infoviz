@@ -1,3 +1,6 @@
+// This code is responsible for reading the raw data into data files.
+// All of this was created entirely from scratch.
+
 function loadTeams(players) {
 	d3.csv("raw_data/2014/Teams.csv", function(error, teams) {
 		
